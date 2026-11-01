@@ -86,7 +86,9 @@ Use the **folder inside the download ZIP**. An extra level such as
 ## Set up the core and display
 
 Start a game in Gearcoleco. Set **Overscan** and **Aspect Ratio** in its core
-options, then apply the RetroArch video settings below.
+options. Open **Settings → Video → Scaling** for the RetroArch aspect ratio
+and integer-scaling settings. **Black Frame Insertion** and **Shader Sub-frames**
+are under **Settings → Video → Synchronization**.
 
 | Setting | Value |
 | --- | --- |
@@ -95,13 +97,23 @@ options, then apply the RetroArch video settings below.
 | RetroArch: Aspect Ratio | **Core Provided** |
 | RetroArch: Integer Scale | **On** |
 | RetroArch: Integer Scale Axis | **Y (vertical)** |
+| RetroArch: Integer Scale Scaling | **Underscale** |
 | Black Frame Insertion (BFI) | **Off** |
-| Shader subframes | **Off** |
+| Shader Sub-frames | **Off** |
+
+Use the core's native output without an additional software video filter. If one
+is selected, choose **Settings → Video → Remove Video Filter**.
+
+With NTSC **Top+Bottom** overscan, the core outputs 240 lines. **Underscale** fits
+whole multiples of those lines inside the display without cropping. At 1080p,
+this gives a **1280 × 960** game viewport, so borders are expected. Use the
+**1080p** preset folder even though the game viewport is 960 pixels high.
 
 ## Choose a preset
 
-Choose the folder matching your **output resolution**, then **Flat** or
-**Curved** where available.
+Choose the folder matching **RetroArch's output resolution**, then **Flat** or
+**Curved** where available. The output resolution can differ from your display's
+native resolution.
 
 | Output | Folder names |
 | --- | --- |
@@ -112,11 +124,17 @@ Choose the folder matching your **output resolution**, then **Flat** or
 
 Every folder contains the same nine looks:
 
-**Clean · Dirty · RGB · S-Video · Composite · RF · Badly Adjusted · RGB 100 · Composite 100**
-
-- **RF** adds filtering and delay.
-- **Badly Adjusted** adds a slight static picture skew.
-- **RGB 100** and **Composite 100** use alternate CRT profiles.
+| Look | What to expect |
+| --- | --- |
+| **Clean** | Light filtering with clear detail and separated colour edges. |
+| **Dirty** | More analogue texture and colour fringing than Clean. |
+| **RGB** | Bypasses NTSC signal filtering while retaining CRT effects. |
+| **S-Video** | Separates brightness and colour, with softer colour detail than RGB. |
+| **Composite** | Colour bleed, fringing, and moderate softness. |
+| **RF** | Extra filtering and delay, with subtle signal noise. |
+| **Badly Adjusted** | Stronger colour artifacts, a warmer picture, and slight static skew. |
+| **RGB 100** | RGB signal treatment with a distinct RetroCrisis 100 CRT profile. |
+| **Composite 100** | Composite signal treatment with a distinct RetroCrisis 100 CRT profile. |
 
 Open **Quick Menu → Shaders**, turn **Video Shaders** on, and choose
 **Load Shader Preset**. For example, the 1080p Flat Composite preset is:
@@ -134,11 +152,16 @@ when comparing looks.
 After loading a preset, open **Quick Menu → Shaders**:
 
 1. Make any changes under **Shader Parameters**.
-2. Enable **Simple Presets**.
-3. Choose **Save → Save Core Preset** to use this look with Gearcoleco.
+2. Open **Save** and turn **Simple Presets** on.
+3. Choose **Save Core Preset** to use this look with Gearcoleco.
 
 For a different look in one game, load that game and the desired shader, then
-choose **Save → Save Game Preset**. A game preset takes priority over the core preset.
+choose **Save → Save Game Preset**.
+
+Automatic presets load in this order of priority: **Game → Content Directory →
+Core → Global**. If a game or folder keeps loading a different look, open **Save**
+and check **Remove Game Preset** or **Remove Content Directory Preset**. Remove
+only the saved override you no longer want.
 
 Save again after making further parameter changes.
 
@@ -180,8 +203,9 @@ and saved presets together.
 | A preset reports a missing shader or lookup image (LUT) | [Update the shared Slang shaders](#install-the-shared-shaders) and check the [folder layout](#install). Keep both custom stages in `OptiShaders/shaders/`. |
 | Gearcoleco will not start the game | Test with shaders disabled. Check `colecovision.rom` and the configured **System/BIOS** directory. |
 | A saved preset fails after an update or move | Load a supplied preset from its new location and save it again. |
-| One game uses the wrong look | Check its saved game preset; it takes priority over the core preset. |
+| One game or folder uses the wrong look | Check its saved game or content-directory preset; either can override the core preset. See [saving and overrides](#save-your-choice). |
 | The picture is stretched or sized incorrectly | Check the [core and display settings](#set-up-the-core-and-display) and choose the folder matching your output resolution. |
+| There are borders above and below the image at 1080p | This is expected with the recommended **Underscale** setting: the 240-line source fits at 960 pixels high. |
 | Moving objects leave an afterglow you want to turn off | Set **Afterglow Strength** to **0**, then save the preset. |
 
 For missing-file errors, shared dependencies belong under

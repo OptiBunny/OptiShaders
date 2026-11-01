@@ -24,8 +24,8 @@ not already installed.
 5. Open **Quick Menu → Shaders**, turn **Video Shaders** on, and choose
    **Load Shader Preset**. Pick a preset from the folder matching your
    [output resolution](OptiShaders/README.md#choose-a-preset).
-6. Enable **Simple Presets**, then choose **Save → Save Core Preset** to use
-   that look with Gearcoleco. See [saving and game overrides](OptiShaders/README.md#save-your-choice).
+6. Open **Save**, turn **Simple Presets** on, then choose **Save Core Preset**
+   to use that look with Gearcoleco. See [saving and game overrides](OptiShaders/README.md#save-your-choice).
 
 ## Choose your look
 
@@ -59,5 +59,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-4b17bba1267ec7eedb5c78935a74158c55fa78f7c1cad98fbe58b3ba12bff70f
+c25a1123aeabf4891aed84c1d0a9e5f67221c2b4b2b34687a12e52a5f04a7fd2
 ```
