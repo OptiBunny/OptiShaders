@@ -203,6 +203,7 @@ and saved presets together.
 | A preset reports a missing shader or lookup image (LUT) | [Update the shared Slang shaders](#install-the-shared-shaders) and check the [folder layout](#install). Keep both custom stages in `OptiShaders/shaders/`. |
 | Gearcoleco will not start the game | Test with shaders disabled. Check `colecovision.rom` and the configured **System/BIOS** directory. |
 | A saved preset fails after an update or move | Load a supplied preset from its new location and save it again. |
+| A saved preset stalls when a game starts, but loads manually | Try an [automatic shader delay](#saved-preset-stalls-at-startup). |
 | One game or folder uses the wrong look | Check its saved game or content-directory preset; either can override the core preset. See [saving and overrides](#save-your-choice). |
 | The picture is stretched or sized incorrectly | Check the [core and display settings](#set-up-the-core-and-display) and choose the folder matching your output resolution. |
 | There are borders above and below the image at 1080p | This is expected with the recommended **Underscale** setting: the 240-line source fits at 960 pixels high. |
@@ -213,6 +214,18 @@ For missing-file errors, shared dependencies belong under
 `advanced/lut/`. The included custom stages are
 `OptiShaders/shaders/optishaders-colecovision-ntsc-pass1.slang` and
 `OptiShaders/shaders/optishaders-colecovision-yc-pass1.slang`.
+
+### Saved preset stalls at startup
+
+If a preset works when loaded after the game starts but stalls when loaded
+automatically, try a short delay:
+
+1. Start RetroArch without loading a game.
+2. Enable **Settings → User Interface → Show Advanced Settings**.
+3. Set **Settings → Video → Auto-Shader Delay** to **100 ms**.
+4. Load the game again. Save your RetroArch configuration to keep the setting.
+
+This can give the core time to initialize before RetroArch applies the saved shader.
 
 ## Credits and licenses
 
