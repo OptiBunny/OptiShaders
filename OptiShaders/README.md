@@ -85,13 +85,18 @@ Use the **folder inside the download ZIP**. An extra level such as
 
 ## Set up the core and display
 
-Start a game in Gearcoleco. Set **Overscan** and **Aspect Ratio** in its core
-options. Open **Settings → Video → Scaling** for the RetroArch aspect ratio
-and integer-scaling settings. **Black Frame Insertion** and **Shader Sub-frames**
-are under **Settings → Video → Synchronization**.
+These settings target standard NTSC ColecoVision video in Gearcoleco. Start a
+game and open **Quick Menu → Core Options** for the Gearcoleco settings below;
+some core versions group them under **System** and **Video**.
+
+Open **Settings → Video → Scaling** for RetroArch's aspect ratio and integer
+scaling. **Black Frame Insertion** and **Shader Sub-frames** are under
+**Settings → Video → Synchronization**.
 
 | Setting | Value |
 | --- | --- |
+| Gearcoleco: Refresh Rate (restart) | **NTSC (60 Hz)** |
+| Gearcoleco: Video Chip (restart), if available | **TMS9918A** |
 | Gearcoleco: Overscan | **Top+Bottom** |
 | Gearcoleco: Aspect Ratio | **4:3 DAR** |
 | RetroArch: Aspect Ratio | **Core Provided** |
@@ -101,11 +106,16 @@ are under **Settings → Video → Synchronization**.
 | Black Frame Insertion (BFI) | **Off** |
 | Shader Sub-frames | **Off** |
 
+Close and reload the game after changing a setting marked **(restart)**.
+For games that require PAL timing or F18A, keep the settings they need; the
+240-line setup below describes Gearcoleco's NTSC/TMS output.
+
 Use the core's native output without an additional software video filter. If one
 is selected, choose **Settings → Video → Remove Video Filter**.
 
-With NTSC **Top+Bottom** overscan, the core outputs 240 lines. **Underscale** fits
-whole multiples of those lines inside the display without cropping. At 1080p,
+With NTSC timing, the **TMS9918A** core option, and **Top+Bottom** overscan,
+Gearcoleco outputs 240 lines. **Underscale** fits whole multiples of those lines
+inside the display without cropping. At 1080p,
 this gives a **1280 × 960** game viewport, so borders are expected. Use the
 **1080p** preset folder even though the game viewport is 960 pixels high.
 
@@ -121,6 +131,10 @@ native resolution.
 | 1080p | `1080p Flat` · `1080p Curved` |
 | 1440p | `1440p Flat` · `1440p Curved` |
 | 4K | `4K Flat` · `4K Curved` |
+
+On Steam Deck's built-in **1280 × 800** screen, use **`720p Steam Deck`**.
+With the core and display settings above, the game viewport is **960 × 720**,
+so borders are expected.
 
 Every folder contains the same nine looks:
 
