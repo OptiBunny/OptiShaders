@@ -1,53 +1,133 @@
-# OptiShaders — ColecoVision for Gearcoleco (v10)
+# OptiShaders — ColecoVision pack guide
 
-Nine NTSC looks across seven resolution and screen-shape folders, with 63 presets in total.
+**v10 · 63 presets · 9 looks · 7 resolution folders**
+
+This pack is for the **Gearcoleco** core in RetroArch. It provides nine CRT looks, with NTSC signal effects.
+
+[Project and downloads](https://github.com/OptiBunny/OptiShaders#readme)
 
 ## Install
 
-1. Copy **OptiShaders** into `RetroArch/shaders/shaders_slang/`.
-2. Keep both files in its **shaders** folder. The presets also need the shared Guest shaders and lookup images (LUTs) from RetroArch's Slang shader collection.
-3. Load a game in Gearcoleco, then choose a preset through **Quick Menu → Shaders → Load Shader Preset**.
-4. To save it for the core, load the supplied preset, adjust its parameters if needed, enable **Simple Presets**, and choose **Save → Save Core Preset**. A saved game preset can override the core preset.
+You need **RetroArch**, the **Gearcoleco** core, and RetroArch's **Slang shader collection**. The collection supplies the shared Guest shaders and lookup images (LUTs) used by this pack.
 
-When updating, back up your edits and install the new **OptiShaders** folder. Load a renamed preset and resave any core or game presets: saved presets that point to an older folder or filename need their references updated before you remove that older installation. Keep shared shader dependencies with your installation when moving or backing it up.
+1. Download and extract `OptiShaders-ColecoVision-Gearcoleco.zip`.
+2. Copy its **OptiShaders** folder into `RetroArch/shaders/shaders_slang/`.
+3. Keep all supplied folders and both custom shader files together.
+4. Load a game in Gearcoleco. Open **Quick Menu → Shaders → Load Shader Preset** and select a preset from the folder for your resolution.
 
-## Core and display settings
+The installed layout should look like this:
 
-- Gearcoleco: **Overscan: Top+Bottom** and **Aspect Ratio: 4:3 DAR**.
-- RetroArch: **Core Provided** aspect ratio and vertical/Y integer scaling.
-- Keep **BFI** and **shader subframes** disabled.
-- Use the folder matching your output resolution. A 240-line input fits 4K at 9×; at 1080p, integer scaling uses a 960-line-high game viewport.
+```text
+shaders_slang/
+├── crt/                  # shared RetroArch shaders and LUTs
+└── OptiShaders/
+    ├── 1080p Flat/        # one of the seven preset folders
+    ├── ...
+    ├── shaders/          # both included custom stages
+    └── licenses/
+```
 
-| Output resolution | Folders |
+Copy the folder **inside the ZIP**, rather than the entire repository. Avoid nesting it as `OptiShaders/OptiShaders/` inside `shaders_slang/`.
+
+## Set up the core and display
+
+| Setting | Value |
 | --- | --- |
-| 720p | Steam Deck |
-| 1080p | Flat, Curved |
-| 1440p | Flat, Curved |
-| 4K | Flat, Curved |
+| Gearcoleco: Overscan | **Top+Bottom** |
+| Gearcoleco: Aspect Ratio | **4:3 DAR** |
+| RetroArch: Aspect Ratio | **Core Provided** |
+| RetroArch: Integer Scale | **On** |
+| RetroArch: Integer Scale Axis | **Y (vertical)** |
+| BFI | **Off** |
+| Shader subframes | **Off** |
 
-## Looks and controls
+## Choose a preset
 
-Every folder includes **Clean, Dirty, RGB, S-Video, Composite, RF, Badly Adjusted, RGB 100, and Composite 100**. RGB 100 and Composite 100 use alternate CRT profiles.
+First choose your **output resolution**, then **Flat** or **Curved** where available.
 
-Preset filenames use `OptiShaders - ColecoVision - <look>.slangp`.
+| Output | Folder names |
+| --- | --- |
+| 720p | `720p Steam Deck` |
+| 1080p | `1080p Flat` · `1080p Curved` |
+| 1440p | `1440p Flat` · `1440p Curved` |
+| 4K | `4K Flat` · `4K Curved` |
 
-RF adds filtering and delay. Badly Adjusted adds a small static picture skew while keeping the screen mask fixed.
+Every folder contains the same nine looks:
 
-| Shader control | Default | Adjustment |
+**Clean · Dirty · RGB · S-Video · Composite · RF · Badly Adjusted · RGB 100 · Composite 100**
+
+- **RF** adds filtering and delay.
+- **Badly Adjusted** adds a slight static picture skew.
+- **RGB 100** and **Composite 100** use alternate CRT profiles.
+
+Preset names follow `OptiShaders - ColecoVision - <look>.slangp`. For example, the 1080p Flat Composite preset is:
+
+```text
+OptiShaders/1080p Flat/OptiShaders - ColecoVision - Composite.slangp
+```
+
+Signal effects target NTSC. Appearance and performance can vary with the graphics backend, display, and hardware.
+
+## Adjust the shader
+
+Open **Quick Menu → Shaders → Shader Parameters** after loading a preset. Save the preset again when you want to keep a change.
+
+| Control | Supplied setting | What it does |
 | --- | --- | --- |
-| Coleco experimental board response | RF: 0.5; other encoded looks: 0 | Set to 0 to disable this RF effect; increase for a stronger effect. |
-| Coleco static picture skew (native pixels) | Badly Adjusted: 0.5 | Set to 0 for straight picture geometry. |
-| Afterglow Strength | Preset-dependent | Set to 0 to disable persistence. |
+| **Coleco experimental board response** | RF: **0.5**; other encoded looks: **0** | Controls the added RF filtering/delay effect. Set it to 0 to disable that effect. |
+| **Coleco static picture skew (native pixels)** | Badly Adjusted: **0.5** | Controls picture skew. Set it to 0 for straight picture geometry. |
+| **Afterglow Strength** | Depends on the preset | Set it to 0 to disable persistence. |
 
-Leave **Coleco RGB geometry pass** at its supplied value: Clean/S-Video use 0 and Badly Adjusted uses 1. It selects the operation rather than its strength.
+Leave **Coleco RGB geometry pass** at its supplied value: **0** for Clean/S-Video and **1** for Badly Adjusted. It selects the operation rather than its strength.
 
-Keep SDR/HDR mode and display settings consistent when comparing looks. Appearance and performance can vary with the graphics backend, display, and hardware.
+Keep SDR/HDR mode and display settings consistent when comparing looks.
+
+## Save your choice
+
+1. Load the supplied preset you want to use.
+2. Make any changes under **Shader Parameters**.
+3. Enable **Simple Presets**.
+4. Choose **Save → Save Core Preset** to use it with Gearcoleco.
+
+A saved game preset can override the core preset. If one game keeps loading a different look, check its saved preset too.
+
+## Update an existing installation
+
+1. Back up your own edits and saved core/game presets.
+2. Install the new **OptiShaders** folder.
+3. Load a preset from that folder, reapply your preferred settings, and save the core preset again. Repeat for any game-specific presets.
+4. Check that the new saves load correctly before removing an older installation.
+
+**Renaming a folder does not update saved preset references.**
+
+When moving or backing up RetroArch, keep the pack, shared shader collection, and saved presets together.
+
+## Troubleshooting
+
+| Problem | What to check |
+| --- | --- |
+| A preset will not load | Check the folder layout above. Keep both custom stages in `OptiShaders/shaders/` and make sure the shared Guest shaders and LUTs are present under `shaders_slang/crt/`. |
+| An old save fails after an update | Load a renamed preset from the new pack and resave it. The saved reference may still point to an old path. |
+| One game uses the wrong look | A game preset may be overriding the core preset. |
+| The picture is stretched or sized incorrectly | Recheck the core/display settings and select the folder matching your output resolution. |
+| You want to disable persistence | Set **Afterglow Strength** to **0**, then save your preset. |
+
+## Included files
+
+The ZIP contains **69 files**: 63 presets, two custom shader stages, this guide, and three licenses.
+
+Keep both custom stages in `OptiShaders/shaders/`:
+
+- `optishaders-colecovision-ntsc-pass1.slang`
+- `optishaders-colecovision-yc-pass1.slang`
+
+The shared Guest shaders and LUTs come from RetroArch's Slang shader collection; they are not bundled in this ZIP.
 
 ## Credits and licenses
 
 Presets are adapted from [RetroCrisis](https://github.com/RetroCrisis/Retro-Crisis-GDV-NTSC). Shared CRT shaders are by guest(r), Dr. Venom, and contributors, distributed through [libretro's Slang shaders](https://github.com/libretro/slang-shaders).
 
-The pack includes 63 presets, two custom shader stages, this guide, and three license files. Keep the supplied notices:
+Keep the supplied license notices with the pack:
 
 - [ColecoVision custom stages — MIT](licenses/Coleco-NTSC-MIT.txt)
 - [RetroCrisis — GPL-3.0](licenses/RetroCrisis-GPL-3.0.txt)
