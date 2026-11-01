@@ -6,20 +6,33 @@ This pack is for the **Gearcoleco** core in RetroArch. It provides nine CRT look
 
 [Project and downloads](https://github.com/OptiBunny/OptiShaders#readme)
 
+## Prerequisites
+
+**A separate RetroCrisis installation is not required.** OptiShaders includes complete presets adapted from RetroCrisis. They use two custom stages included in this ZIP and shared Guest shaders from RetroArch's Slang collection.
+
+Set up these three requirements first:
+
+1. **RetroArch with a Slang-compatible video driver.** Under **Settings → Drivers → Video**, select a supported driver such as **vulkan** or **glcore**, then fully restart RetroArch after changing it. These presets use `.slangp`; a GLSL-only driver cannot load them. Driver availability depends on your platform.
+2. **Gearcoleco, its BIOS and a game.** Install the **Gearcoleco** core through **Main Menu → Online Updater → Core Downloader**, or your platform's core-installation method. Put `colecovision.rom` in the folder shown under **Settings → Directory → System/BIOS**. Confirm that a ColecoVision game runs with shaders disabled before continuing. See the [Gearcoleco BIOS instructions](https://docs.libretro.com/library/gearcoleco/#bios). The core, BIOS and games are not included in OptiShaders.
+3. **RetroArch's shared Slang shaders.** Run **Main Menu → Online Updater → Update Slang Shaders** and let it finish. This supplies the Guest Advanced/HD shader files and lookup images (LUTs) referenced by the presets. They are not included in the OptiShaders ZIP. See [RetroArch's shader guide](https://docs.libretro.com/guides/shaders/).
+
+If **Update Slang Shaders** is unavailable, download the [official Slang collection](https://github.com/libretro/slang-shaders) using **Code → Download ZIP**. Extract its contents into your `shaders_slang` directory so `crt/` sits directly inside it; do not leave an extra `slang-shaders-master/` folder between them.
+
 ## Install
 
-You need **RetroArch**, the **Gearcoleco** core, and RetroArch's **Slang shader collection**. The collection supplies the shared Guest shaders and lookup images (LUTs) used by this pack.
+Find your shader location under **Settings → Directory → Video Shader**. The examples below use `RetroArch/shaders/shaders_slang/`; the actual location can differ by installation. Use the Slang collection folder containing `crt/` as the destination.
 
 1. Download and extract `OptiShaders-ColecoVision-Gearcoleco.zip`.
-2. Copy its **OptiShaders** folder into `RetroArch/shaders/shaders_slang/`.
+2. Copy its **OptiShaders** folder into that `shaders_slang/` directory, alongside `crt/`.
 3. Keep all supplied folders and both custom shader files together.
-4. Load a game in Gearcoleco. Open **Quick Menu → Shaders → Load Shader Preset** and select a preset from the folder for your resolution.
+4. Load a game in Gearcoleco. Open **Quick Menu → Shaders**, turn **Video Shaders** on, then choose **Load Shader Preset** and select a preset from the folder for your resolution.
 
 The installed layout should look like this:
 
 ```text
 shaders_slang/
-├── crt/                  # shared RetroArch shaders and LUTs
+├── crt/                  # installed by Update Slang Shaders
+│   └── shaders/guest/     # advanced/, hd/ and LUT files
 └── OptiShaders/
     ├── 1080p Flat/        # one of the seven preset folders
     ├── ...
@@ -106,7 +119,9 @@ When moving or backing up RetroArch, keep the pack, shared shader collection, an
 
 | Problem | What to check |
 | --- | --- |
-| A preset will not load | Check the folder layout above. Keep both custom stages in `OptiShaders/shaders/` and make sure the shared Guest shaders and LUTs are present under `shaders_slang/crt/`. |
+| A `.slangp` preset is missing from the file picker | Check the video driver. Choose a supported Slang driver such as **vulkan** or **glcore**, then restart RetroArch. |
+| A preset reports a missing shader or LUT | Run **Update Slang Shaders** and check the layout above. Keep both included custom stages in `OptiShaders/shaders/`. Shared dependencies belong in `crt/shaders/guest/advanced/` and `crt/shaders/guest/hd/`, including the `advanced/lut/` images. |
+| Gearcoleco will not start the game | Test with shaders disabled and check the required BIOS filename and **System/BIOS** directory. Shader files cannot replace the core or BIOS. |
 | An old save fails after an update | Load a renamed preset from the new pack and resave it. The saved reference may still point to an old path. |
 | One game uses the wrong look | A game preset may be overriding the core preset. |
 | The picture is stretched or sized incorrectly | Recheck the core/display settings and select the folder matching your output resolution. |
