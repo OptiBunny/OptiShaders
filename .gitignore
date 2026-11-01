@@ -1,0 +1,25 @@
+# Original private handoff and development checkout
+/RetroArch-Shaders-Codex-Handoff/
+/RetroArch-Shaders-dev/
+/OptiShaders-dev/
+/verification/
+
+# Local credentials
+.env
+.env.*
+!.env.example
+
+# Local development outputs and environments
+/.venv/
+/venv/
+/build/
+/dist/
+/results/
+/tmp/
+/temp/
+__pycache__/
+*.py[cod]
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
