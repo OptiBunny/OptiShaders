@@ -2,7 +2,7 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10 · 63 presets · 9 looks · 720p to 4K**
+**v10.1 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
@@ -19,8 +19,10 @@ Before installing the pack, you need:
   or downloaded manually.
 
 These are installed separately. OptiShaders supplies complete presets adapted
-from RetroCrisis and two custom shader stages; a separate RetroCrisis installation
-is not required. The shared Guest shaders come from the Slang collection.
+from RetroCrisis, two custom signal stages, and a modified Guest scanline stage
+that reduces isolated bright artifacts at scanline boundaries. A separate
+RetroCrisis installation is not required. The remaining shared Guest shaders
+come from the Slang collection.
 
 ### Set the video driver
 
@@ -198,10 +200,17 @@ and **1** for Badly Adjusted. It selects the operation rather than its strength.
 ## Update an existing installation
 
 1. Back up your own edits and saved core/game presets.
-2. Install the new **`OptiShaders`** folder in your Slang shader directory.
+2. Copy the new **`OptiShaders`** folder into the same Slang shader directory,
+   replacing the supplied preset and shader files. Keep the included license notices.
 3. Load a preset from the new folder, reapply your preferred settings, and save
    the core preset again. Repeat for any game presets.
 4. Check that the new saves load correctly before removing an older installation.
+
+The scanline update needs both the new presets and the bundled
+`shaders/optishaders-guest-ntsc-pass2.slang` file. Updating the shared Slang
+collection alone does not install it. Older full saved presets may still use
+the original shared scanline stage; reload a supplied preset, enable
+**Simple Presets**, and save it again.
 
 Saved presets can refer to the original files by path. If you rename or move
 the pack, load a preset from its new location and save it again.
@@ -214,7 +223,7 @@ and saved presets together.
 | Problem | What to check |
 | --- | --- |
 | A `.slangp` preset is missing from the file picker | [Choose a Slang-compatible video driver](#set-the-video-driver), then restart RetroArch. |
-| A preset reports a missing shader or lookup image (LUT) | [Update the shared Slang shaders](#install-the-shared-shaders) and check the [folder layout](#install). Keep both custom stages in `OptiShaders/shaders/`. |
+| A preset reports a missing shader or lookup image (LUT) | [Update the shared Slang shaders](#install-the-shared-shaders) and check the [folder layout](#install). Keep all files in `OptiShaders/shaders/` together. |
 | Gearcoleco will not start the game | Test with shaders disabled. Check `colecovision.rom` and the configured **System/BIOS** directory. |
 | A saved preset fails after an update or move | Load a supplied preset from its new location and save it again. |
 | A saved preset stalls when a game starts, but loads manually | Try an [automatic shader delay](#saved-preset-stalls-at-startup). |
@@ -225,9 +234,11 @@ and saved presets together.
 
 For missing-file errors, shared dependencies belong under
 `crt/shaders/guest/advanced/` and `crt/shaders/guest/hd/`, with lookup images in
-`advanced/lut/`. The included custom stages are
-`OptiShaders/shaders/optishaders-colecovision-ntsc-pass1.slang` and
-`OptiShaders/shaders/optishaders-colecovision-yc-pass1.slang`.
+`advanced/lut/`. The included stages are:
+
+- `OptiShaders/shaders/optishaders-colecovision-ntsc-pass1.slang`
+- `OptiShaders/shaders/optishaders-colecovision-yc-pass1.slang`
+- `OptiShaders/shaders/optishaders-guest-ntsc-pass2.slang`
 
 ### Saved preset stalls at startup
 
@@ -248,8 +259,12 @@ Presets are adapted from
 shaders are by guest(r), Dr. Venom, and contributors, distributed through
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
+The bundled Guest scanline stage includes an OptiShaders boundary-fade
+modification and retains its upstream copyright and GPL-2.0-or-later license.
+The two custom signal stages use the supplied MIT license.
+
 Keep the supplied license notices with the pack:
 
-[Custom stages — MIT](licenses/Coleco-NTSC-MIT.txt) ·
+[Custom signal stages — MIT](licenses/Coleco-NTSC-MIT.txt) ·
 [RetroCrisis — GPL-3.0](licenses/RetroCrisis-GPL-3.0.txt) ·
-[Guest — GPL-2.0](licenses/Guest-GPL-2.0.txt)
+[Guest scanline stage — GPL-2.0-or-later](licenses/Guest-GPL-2.0.txt)
