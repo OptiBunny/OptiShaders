@@ -2,12 +2,15 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.1 · 63 presets · 9 looks · 720p to 4K**
+**v10.2 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-This update reduces isolated bright artifacts at scanline boundaries.
+This update prevents washed-out output from extreme scanline settings and dark
+vertical lines from certain horizontal-filter adjustments. The supplied preset
+settings are unchanged.
+
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
 ## Quick start
@@ -48,20 +51,21 @@ Presets are adapted from
 CRT shaders by guest(r), Dr. Venom, and contributors from
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
-OptiShaders includes its presets, two custom signal stages, and a modified Guest
-scanline stage. RetroArch, Gearcoleco, the BIOS, games, and the remaining shared
-Slang shaders are installed separately.
+OptiShaders includes its presets and four shader stages: two custom signal
+stages and modified Guest horizontal-filter and scanline stages. RetroArch,
+Gearcoleco, the BIOS, games, and the remaining shared Slang shaders are installed
+separately.
 
 Keep the supplied license notices with the pack:
 
 [Custom signal stages — MIT](OptiShaders/licenses/Coleco-NTSC-MIT.txt) ·
 [RetroCrisis — GPL-3.0](OptiShaders/licenses/RetroCrisis-GPL-3.0.txt) ·
-[Guest scanline stage — GPL-2.0-or-later](OptiShaders/licenses/Guest-GPL-2.0.txt)
+[Guest stages — GPL-2.0-or-later](OptiShaders/licenses/Guest-GPL-2.0.txt)
 
 ## Download checksum
 
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-ea2622ecb2d23f301f0cfec303817b26a9844d93f8ebbcdb9147bf5e4a115895
+698224bb70ede4e830f6c5a9855f2dc677b9dec6c24fad2d7db233e2f43ffd90
 ```

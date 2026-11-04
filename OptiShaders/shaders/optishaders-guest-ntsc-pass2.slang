@@ -24,6 +24,8 @@
    
 */
 
+// OptiShaders modification, 2026-11-04: normalize large negative-shape
+// beam weights in the log domain to avoid internal overflow.
 // OptiShaders modification, 2026-11-02: fade static progressive row weights
 // to zero at the sampling boundary, including the brightness reference.
 
@@ -207,6 +209,31 @@ float scanlineBoundaryWindow(float beamDistance)
 {
     float t = clamp((1.0 - beamDistance) * 16.0, 0.0, 1.0);
     return clamp(t*t*t*(t*(6.0*t - 15.0) + 10.0), 0.0, 1.0);
+}
+
+// OptiShaders: log weights are evaluated only for negative
+// beam shapes. The ordinary preset path retains its original equations.
+vec3 scanlineLogWeight(float x, float color, float shape, vec3 c)
+{
+    vec3 sat = mix(1.0.xxx + scans, 1.0.xxx, c);
+    float tmp;
+    float ex;
+    if (gsl < 0.5) {
+        tmp = mix(beam_min, beam_max, color);
+        ex = x*tmp;
+        ex = (gsl > -0.5) ? ex*ex : mix(ex*ex, ex*ex*ex, 0.4);
+    } else if (gsl == 1.0) {
+        x = mix(x, beam_min*x, max(x-0.4*color, 0.0));
+        tmp = mix(1.2*beam_min, beam_max, color);
+        ex = x*tmp;
+        ex = ex*ex;
+    } else {
+        tmp = mix((2.5-0.5*color)*beam_min, beam_max, color);
+        tmp = mix(beam_max, tmp, pow(x, color+0.3));
+        ex = x*tmp;
+        ex = ex*ex;
+    }
+    return -shape*ex*sat;
 }
 
 float st(float x)
@@ -405,6 +432,30 @@ if (!interb || hscan)
 	cref1 = color1 / mc1;
 	cref2 = color2 / mc2;
 
+    bool logNormalize = false;
+    bool largeExponent = false;
+    vec3 logw1 = vec3(0.0), logw2 = vec3(0.0);
+    if (scanline1 < 0.0 || scanline2 < 0.0) {
+        logw1 = scanlineLogWeight(f1, creff1, shape1, cref1);
+        logw2 = scanlineLogWeight(f2, creff2, shape2, cref2);
+        vec3 largest = max(logw1, logw2);
+        largeExponent = max(max(largest.r, largest.g), largest.b) > 80.0;
+    }
+    if (largeExponent) {
+        // Incorporate the compact-support taper before choosing a common
+        // exponent. A vanished row must not set the normalization scale.
+        if (boundaryWindow) {
+            float window1 = scanlineBoundaryWindow(f1);
+            float window2 = scanlineBoundaryWindow(f2);
+            logw1 = window1 > 0.0 ? logw1 + log2(window1) : vec3(-1e30);
+            logw2 = window2 > 0.0 ? logw2 + log2(window2) : vec3(-1e30);
+        }
+        vec3 largest = max(logw1, logw2);
+        float offset = max(0.0, max(max(largest.r, largest.g), largest.b));
+        w1 = exp2(logw1 - offset);
+        w2 = exp2(logw2 - offset);
+        logNormalize = offset > 0.0;
+    } else {
 	if (gsl <  0.5) { w1 = sw0(f1,creff1,shape1,cref1); w2 = sw0(f2,creff2,shape2,cref2);} else
 	if (gsl == 1.0) { w1 = sw1(f1,creff1,shape1,cref1); w2 = sw1(f2,creff2,shape2,cref2);} else
 	                { w1 = sw2(f1,creff1,shape1,cref1); w2 = sw2(f2,creff2,shape2,cref2);}
@@ -413,10 +464,11 @@ if (!interb || hscan)
         w1 *= scanlineBoundaryWindow(f1);
         w2 *= scanlineBoundaryWindow(f2);
     }
+    }
 
 	vec3 w3 = w1+w2;
 	float wf1 = max(max(w3.r,w3.g),w3.b);
-	if (wf1 > 1.0) {wf1 = 1.0/wf1; w1*=wf1, w2*=wf1;}
+	if (wf1 > 1.0 || logNormalize) {wf1 = 1.0/wf1; w1*=wf1, w2*=wf1;}
 
 	if (abs(clips) > 0.005)
 	{

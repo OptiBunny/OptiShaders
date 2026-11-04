@@ -2,12 +2,21 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.1 · 63 presets · 9 looks · 720p to 4K**
+**v10.2 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
+
+## What's new in v10.2
+
+- Prevents washed-out output from extreme scanline adjustments.
+- Prevents dark vertical lines from certain horizontal-filter adjustments.
+
+The supplied preset settings are unchanged, and the earlier scanline-boundary
+fix is retained. For an existing installation, follow the
+[update steps](#update-an-existing-installation).
 
 ## Prerequisites
 
@@ -19,10 +28,10 @@ Before installing the pack, you need:
   or downloaded manually.
 
 These are installed separately. OptiShaders supplies complete presets adapted
-from RetroCrisis, two custom signal stages, and a modified Guest scanline stage
-that reduces isolated bright artifacts at scanline boundaries. A separate
-RetroCrisis installation is not required. The remaining shared Guest shaders
-come from the Slang collection.
+from RetroCrisis and four shader stages: two custom signal stages and modified
+Guest horizontal-filter and scanline stages. A separate RetroCrisis installation
+is not required. The remaining shared Guest shaders and lookup images come from
+the Slang collection.
 
 ### Set the video driver
 
@@ -206,11 +215,11 @@ and **1** for Badly Adjusted. It selects the operation rather than its strength.
    the core preset again. Repeat for any game presets.
 4. Check that the new saves load correctly before removing an older installation.
 
-The scanline update needs both the new presets and the bundled
-`shaders/optishaders-guest-ntsc-pass2.slang` file. Updating the shared Slang
-collection alone does not install it. Older full saved presets may still use
-the original shared scanline stage; reload a supplied preset, enable
-**Simple Presets**, and save it again.
+The v10.2 fixes need the new presets and all four files in the bundled
+`shaders/` folder. Updating the shared Slang collection alone does not install
+these fixes. Older full saved presets may still point to the shared horizontal
+filter or scanline stage; reload a supplied preset, enable **Simple Presets**,
+and save it again.
 
 Saved presets can refer to the original files by path. If you rename or move
 the pack, load a preset from its new location and save it again.
@@ -238,6 +247,7 @@ For missing-file errors, shared dependencies belong under
 
 - `OptiShaders/shaders/optishaders-colecovision-ntsc-pass1.slang`
 - `OptiShaders/shaders/optishaders-colecovision-yc-pass1.slang`
+- `OptiShaders/shaders/optishaders-guest-ntsc-pass1.slang`
 - `OptiShaders/shaders/optishaders-guest-ntsc-pass2.slang`
 
 ### Saved preset stalls at startup
@@ -259,12 +269,13 @@ Presets are adapted from
 shaders are by guest(r), Dr. Venom, and contributors, distributed through
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
-The bundled Guest scanline stage includes an OptiShaders boundary-fade
-modification and retains its upstream copyright and GPL-2.0-or-later license.
-The two custom signal stages use the supplied MIT license.
+The two bundled Guest stages include OptiShaders changes for scanline
+boundaries, extreme scanline settings, and zero horizontal-filter weight sums.
+They retain their upstream copyright notices and GPL-2.0-or-later license. The
+two custom signal stages use the supplied MIT license.
 
 Keep the supplied license notices with the pack:
 
 [Custom signal stages — MIT](licenses/Coleco-NTSC-MIT.txt) ·
 [RetroCrisis — GPL-3.0](licenses/RetroCrisis-GPL-3.0.txt) ·
-[Guest scanline stage — GPL-2.0-or-later](licenses/Guest-GPL-2.0.txt)
+[Guest stages — GPL-2.0-or-later](licenses/Guest-GPL-2.0.txt)
