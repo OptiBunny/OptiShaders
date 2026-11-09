@@ -1,0 +1,68 @@
+name: Release checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-checks:
+    name: Release checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out the proposed package
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: package
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - name: Read the pinned shared-shader revision
+        id: manifest
+        working-directory: package
+        shell: bash
+        run: |
+          python -B - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+
+          revision = json.loads(Path("tools/release.json").read_text(encoding="utf-8"))["shared_revision"]
+          if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
+              raise SystemExit("shared_revision must be a full lowercase Git commit SHA")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"shared_revision={revision}\n")
+          PY
+
+      - name: Check out the shared Slang dependencies
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: libretro/slang-shaders
+          ref: ${{ steps.manifest.outputs.shared_revision }}
+          path: shared-slang
+          sparse-checkout: crt/shaders/guest
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Validate the release
+        working-directory: package
+        run: python -B tools/validate_release.py --slang-root ../shared-slang
+
+      - name: Exercise rejected package changes
+        working-directory: package
+        run: python -B tools/test_validate_release.py --slang-root ../shared-slang

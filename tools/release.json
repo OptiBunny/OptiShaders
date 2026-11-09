@@ -1,0 +1,21 @@
+{
+  "version": "10.2",
+  "shared_revision": "2345ee91602a7404d3a1a6a5df6108d7305fdad4",
+  "preset_folders": [
+    "720p Steam Deck", "1080p Flat", "1080p Curved", "1440p Flat",
+    "1440p Curved", "4K Flat", "4K Curved"
+  ],
+  "looks": [
+    "Clean", "Dirty", "RGB", "S-Video", "Composite", "RF",
+    "Badly Adjusted", "RGB 100", "Composite 100"
+  ],
+  "bundled_shaders": [
+    "optishaders-colecovision-ntsc-pass1.slang",
+    "optishaders-colecovision-yc-pass1.slang",
+    "optishaders-guest-ntsc-pass1.slang",
+    "optishaders-guest-ntsc-pass2.slang"
+  ],
+  "licenses": [
+    "Coleco-NTSC-MIT.txt", "RetroCrisis-GPL-3.0.txt", "Guest-GPL-2.0.txt"
+  ]
+}

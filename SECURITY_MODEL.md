@@ -71,7 +71,10 @@ compiler, driver, or image parsers.
 
 ## Repository invariants for review
 
-These are review requirements, not claims of an automated enforcement system:
+These remain review requirements. The [release checks](tools/README.md) automate
+package membership, dependency paths, corrected-stage references, ZIP/source byte
+agreement, the published checksum and current release labels on pull requests.
+They do not replace shader, privacy or dependency review, or runtime validation:
 
 - Keep references within the documented pack and shared dependency tree. Resolve
   legitimate parent-relative paths fully and inspect every new loading surface.
