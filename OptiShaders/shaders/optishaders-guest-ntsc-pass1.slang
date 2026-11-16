@@ -26,6 +26,8 @@
 
 // OptiShaders modification, 2026-11-04: reconstruct source color at zero
 // horizontal-filter denominators, with explicit base-level sampling.
+// OptiShaders modification, 2026-11-16: avoid an undefined horizontal-filter
+// power when Sharpness Definition (HSHARP) is zero.
 
 layout(push_constant) uniform Push
 {
@@ -150,7 +152,13 @@ void main()
 		
 		w = gaussian(n+f,xscale) - sharp;
 		fpx = (abs(n+f)-FPR)*FPRi;
-		if (w < 0.0) w = max(w, mix(-maxsharp, 0.0, pow(clamp(fpx,0.0,1.0), HSHARP)));
+		if (w < 0.0)
+		{
+			// At exponent zero the taper is one, so negative weights become zero.
+			// Handle it explicitly: GLSL does not define pow(0.0, 0.0).
+			if (HSHARP == 0.0) w = 0.0;
+			else w = max(w, mix(-maxsharp, 0.0, pow(clamp(fpx,0.0,1.0), HSHARP)));
+		}
 		else
 		{
 			cmax = max(cmax, pixel); cmin = min(cmin, pixel);

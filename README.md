@@ -2,14 +2,14 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.2 · 63 presets · 9 looks · 720p to 4K**
+**v10.3 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-This update prevents washed-out output from extreme scanline settings and dark
-vertical lines from certain horizontal-filter adjustments. The supplied preset
-settings are unchanged.
+This update avoids an undefined horizontal-filter calculation when **Sharpness
+Definition** is set to **0**. It retains the earlier scanline and horizontal-filter
+fixes. The supplied preset settings are unchanged.
 
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
@@ -67,5 +67,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-c35214a59f87f0241445cb91d95c9249ef922a9812ff0b2e8280daeabd136a5a
+dc8e319611311247754345eb69d22175923df5d72d7e4ebb38d52dc0c8c1b059
 ```

@@ -2,21 +2,22 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.2 · 63 presets · 9 looks · 720p to 4K**
+**v10.3 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.2
+## What's new in v10.3
 
-- Prevents washed-out output from extreme scanline adjustments.
-- Prevents dark vertical lines from certain horizontal-filter adjustments.
+- Avoids an undefined horizontal-filter calculation when **Sharpness Definition**
+  is set to **0**.
 
-The supplied preset settings are unchanged, and the earlier scanline-boundary
-fix is retained. For an existing installation, follow the
-[update steps](#update-an-existing-installation).
+The supplied preset settings are unchanged. The earlier fixes for washed-out
+output at extreme scanline settings, dark vertical lines at certain horizontal-filter
+settings, and scanline boundaries remain included. For an existing installation,
+follow the [update steps](#update-an-existing-installation).
 
 ## Prerequisites
 
@@ -232,8 +233,8 @@ Files saved with **Save Shader Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.2 fixes need the new presets and all four files in the bundled
-`shaders/` folder. Updating the shared Slang collection alone does not install
+The v10.3 update includes the earlier fixes and needs the supplied presets and
+all four files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
 these fixes. Older full saved presets may still point to the shared horizontal
 filter or scanline stage; reload a supplied preset, enable **Simple Presets**,
 and save it again.
@@ -287,7 +288,8 @@ shaders are by guest(r), Dr. Venom, and contributors, distributed through
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
 The two bundled Guest stages include OptiShaders changes for scanline
-boundaries, extreme scanline settings, and zero horizontal-filter weight sums.
+boundaries, extreme scanline settings, zero horizontal-filter weight sums, and
+**Sharpness Definition** set to **0**.
 They retain their upstream copyright notices and GPL-2.0-or-later license. The
 two custom signal stages use the supplied MIT license.
 
