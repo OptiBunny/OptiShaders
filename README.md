@@ -67,5 +67,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-698224bb70ede4e830f6c5a9855f2dc677b9dec6c24fad2d7db233e2f43ffd90
+c35214a59f87f0241445cb91d95c9249ef922a9812ff0b2e8280daeabd136a5a
 ```
