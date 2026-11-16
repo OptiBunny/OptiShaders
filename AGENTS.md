@@ -47,9 +47,11 @@ These documents guide review; they do not establish that a change is correct.
 
 ### Keep releases public-facing
 
-- Keep research, raw validation records, local configurations, logs, captures,
-  machine paths, credentials, and unrelated material out of the public tree and
-  release ZIP. Ignore rules alone do not establish that an artifact is safe.
+- Keep this repository focused on the public product and user-facing documentation.
+  Development-only tools, tests, workflows and internal documentation belong in
+  private development. Keep research, raw validation records, local configurations,
+  logs, captures, machine paths and credentials out of the public tree and ZIP.
+  Ignore rules alone do not establish that an artifact is safe.
 - Review the exact outgoing files, commit metadata, archive members, archive
   metadata, and relevant Git history. Use an explicit release file list and
   verify extracted bytes against the reviewed pack. Update the published ZIP
