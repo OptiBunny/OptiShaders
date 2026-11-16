@@ -136,12 +136,14 @@ Choose the folder matching **RetroArch's output resolution**, then **Flat** or
 **Curved** where available. The output resolution can differ from your display's
 native resolution.
 
-| Output | Folder names |
-| --- | --- |
-| 720p | `720p Steam Deck` |
-| 1080p | `1080p Flat` · `1080p Curved` |
-| 1440p | `1440p Flat` · `1440p Curved` |
-| 4K | `4K Flat` · `4K Curved` |
+With the 240-line setup above, expect these 4:3 game viewports at each output size:
+
+| Output | Folder names | Game viewport |
+| --- | --- | --- |
+| 720p | `720p Steam Deck` | 960 × 720 |
+| 1080p | `1080p Flat` · `1080p Curved` | 1280 × 960 |
+| 1440p | `1440p Flat` · `1440p Curved` | 1920 × 1440 |
+| 4K (2160p) | `4K Flat` · `4K Curved` | 2880 × 2160 |
 
 On Steam Deck's built-in **1280 × 800** screen, use **`720p Steam Deck`**.
 With the core and display settings above, the game viewport is **960 × 720**,
@@ -190,6 +192,12 @@ only the saved override you no longer want.
 
 Save again after making further parameter changes.
 
+Simple Presets keep parameter changes while referencing the supplied preset.
+Changing the shader chain makes RetroArch save a full preset even when **Simple
+Presets** is on. Keep that full preset separately and review its stage references
+when updating; reloading a supplied preset does not retain custom chain edits.
+See [RetroArch's preset guidance](https://docs.libretro.com/guides/shaders/#simple-presets-vs-full-presets).
+
 ## Adjust the shader
 
 Open **Quick Menu → Shaders → Shader Parameters** after loading a preset.
@@ -208,12 +216,21 @@ and **1** for Badly Adjusted. It selects the operation rather than its strength.
 
 ## Update an existing installation
 
-1. Back up your own edits and saved core/game presets.
+1. Back up your edited pack files and saved OptiShaders presets, including core,
+   content-directory and game presets. Include a global preset if it uses OptiShaders.
 2. Copy the new **`OptiShaders`** folder into the same Slang shader directory,
    replacing the supplied preset and shader files. Keep the included license notices.
-3. Load a preset from the new folder, reapply your preferred settings, and save
-   the core preset again. Repeat for any game presets.
-4. Check that the new saves load correctly before removing an older installation.
+3. For each saved OptiShaders look, load the matching preset from the new folder,
+   reapply your parameter changes, turn **Simple Presets** on, and save at its
+   original scope: **Core**, **Content Directory**, **Game** or **Global**.
+   Review any [custom shader-chain edits](#save-your-choice) separately.
+4. Reload the affected games and check that their saved looks load correctly
+   before removing an older installation.
+
+Automatic shader presets normally live in RetroArch's configuration directory.
+Files saved with **Save Shader Preset As** normally use the configured **Video
+Shader** directory; include those in your backup if you use them. See
+[RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
 The v10.2 fixes need the new presets and all four files in the bundled
 `shaders/` folder. Updating the shared Slang collection alone does not install
