@@ -71,10 +71,10 @@ compiler, driver, or image parsers.
 
 ## Repository invariants for review
 
-These remain review requirements. The [release checks](tools/README.md) automate
-package membership, dependency paths, corrected-stage references, ZIP/source byte
-agreement, the published checksum and current release labels on pull requests.
-They do not replace shader, privacy or dependency review, or runtime validation:
+Review package membership, dependency paths, corrected-stage references,
+ZIP/source byte agreement, the published checksum and current release labels.
+These checks complement shader, privacy and dependency review and runtime
+validation. Development tooling is not part of this public product repository:
 
 - Keep references within the documented pack and shared dependency tree. Resolve
   legitimate parent-relative paths fully and inspect every new loading surface.

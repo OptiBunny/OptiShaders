@@ -6,7 +6,3 @@
 /AGENTS.md export-ignore
 /SECURITY.md export-ignore
 /SECURITY_MODEL.md export-ignore
-
-# Release validation belongs to the repository, not source downloads.
-/.github export-ignore
-/tools export-ignore
