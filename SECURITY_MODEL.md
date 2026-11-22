@@ -2,7 +2,8 @@
 
 Initial model reviewed against the public v10.2 pack, 2026-11-05. The dependency
 inventory and integer-scaling safeguards below were updated for v10.5 on
-2026-11-22; the evidence limits still apply.
+2026-11-22. Curvature-domain safeguards were added for v10.6 on the same date;
+the evidence limits still apply.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -88,6 +89,10 @@ validation. Development tooling is not part of this public product repository:
   Keep the scanline and deconvergence integer-scaling guards in agreement:
   floor modes use fractional fit when no positive integer scale fits, while
   valid integer scales and the interlace bypass keep their existing behavior.
+  The two curvature functions replace only non-positive inverse-square-root
+  radicands with a neutral factor. At the declared curvature-shape limits those
+  coordinates are already outside the image; positive radicands and valid
+  curvature calculations are preserved. Keep both stage guards in agreement.
   A fallback for one undefined case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.

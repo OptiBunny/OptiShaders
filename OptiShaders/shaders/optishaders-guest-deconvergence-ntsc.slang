@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-22: preserve finite outside-image
+// coordinates when shift or overscan exceeds the curvature domain.
+
 // OptiShaders modification, 2026-11-22: keep integer-scaling coordinates
 // finite and use fractional fit when the viewport is shorter than the source.
 // Upstream: libretro/slang-shaders 2345ee91602a7404d3a1a6a5df6108d7305fdad4.
@@ -540,7 +543,12 @@ float SlotMask(vec2 pos, float m, float swidth)
 vec2 Warp(vec2 pos)
 {
 	pos  = pos*2.0-1.0;    
-	pos  = mix(pos, vec2(pos.x*inversesqrt(1.0-c_shape*pos.y*pos.y), pos.y*inversesqrt(1.0-c_shape*pos.x*pos.x)), vec2(warpX, warpY)/c_shape);
+    // Shift and overscan can leave the curvature domain. At the supported
+    // c_shape values those coordinates are already beyond the source border.
+    // Keep each valid radicand unchanged and keep outside coordinates finite.
+    vec2 radicand = 1.0 - c_shape * pos.yx * pos.yx;
+    radicand = mix(vec2(1.0), radicand, greaterThan(radicand, vec2(0.0)));
+	pos = mix(pos, pos*inversesqrt(radicand), vec2(warpX, warpY)/c_shape);
 	return pos*0.5 + 0.5;
 }
 

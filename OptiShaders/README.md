@@ -2,21 +2,25 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.5 · 63 presets · 9 looks · 720p to 4K**
+**v10.6 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.5
+## What's new in v10.6
+
+- Prevents bright corner artefacts and undefined pixels when custom vertical
+  shift or negative overscan settings move the picture away from the viewport
+  edges. Supplied preset settings are unchanged.
+
+The pack also includes these earlier fixes:
 
 - Keeps the complete image visible when shader **Integer Scaling** is **1** or
   **2** and the viewport becomes shorter than the game image. Both affected
   stages now use fractional scaling in that case, avoiding undefined sampling.
   All supplied presets use **0**, which is unchanged.
-
-The earlier update also:
 
 - Fixes horizontal cropping when **Speedup w. higher Internal Res.** is set to
   **2**, **3**, or **4** in the seven looks that use signal encoding. Previously,
@@ -252,7 +256,7 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.5 update includes the earlier fixes and needs the supplied presets and
+The v10.6 update includes the earlier fixes and needs the supplied presets and
 all five files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
 these fixes. Older full saved presets may still point to the shared horizontal
 filter, scanline or deconvergence stage; reload a supplied preset, enable **Simple Presets**,
