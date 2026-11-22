@@ -24,6 +24,8 @@
    
 */
 
+// OptiShaders modification, 2026-11-22: keep integer-scaling coordinates
+// finite and use fractional fit when the viewport is shorter than the source.
 // OptiShaders modification, 2026-11-04: normalize large negative-shape
 // beam weights in the log domain to avoid internal overflow.
 // OptiShaders modification, 2026-11-02: fade static progressive row weights
@@ -325,10 +327,10 @@ void main()
    
 	vec2 texcoord = TEX0.xy;
 	if (IOS > 0.0 && !interb){
-		vec2 ofactor = OutputSize.xy/global.OriginalSize.xy;
-		vec2 intfactor = (IOS < 2.5) ? floor(ofactor) : ceil(ofactor);
-		vec2 diff = ofactor/intfactor;
-		float scan = diff.y;
+		float ofactor = OutputSize.y/global.OriginalSize.y;
+		float intfactor = (IOS < 2.5) ? floor(ofactor) : ceil(ofactor);
+		// Fit the full image when no positive integer scale fits the viewport.
+		float scan = intfactor > 0.0 ? ofactor/max(intfactor, 1.0) : 1.0;
 		texcoord = Overscan(texcoord, scan, scan);
 		if (IOS == 1.0 || IOS == 3.0) texcoord = vec2(TEX0.x, texcoord.y);
 	}

@@ -2,14 +2,21 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.4 · 63 presets · 9 looks · 720p to 4K**
+**v10.5 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.4
+## What's new in v10.5
+
+- Keeps the complete image visible when shader **Integer Scaling** is **1** or
+  **2** and the viewport becomes shorter than the game image. Both affected
+  stages now use fractional scaling in that case, avoiding undefined sampling.
+  All supplied presets use **0**, which is unchanged.
+
+The earlier update also:
 
 - Fixes horizontal cropping when **Speedup w. higher Internal Res.** is set to
   **2**, **3**, or **4** in the seven looks that use signal encoding. Previously,
@@ -30,8 +37,8 @@ Before installing the pack, you need:
   or downloaded manually.
 
 These are installed separately. OptiShaders supplies complete presets adapted
-from RetroCrisis and four shader stages: two custom signal stages and modified
-Guest horizontal-filter and scanline stages. A separate RetroCrisis installation
+from RetroCrisis and five shader stages: two custom signal stages and modified
+Guest horizontal-filter, scanline and deconvergence stages. A separate RetroCrisis installation
 is not required. The remaining shared Guest shaders and lookup images come from
 the Slang collection.
 
@@ -218,6 +225,13 @@ These controls adjust the custom signal effects and persistence:
 Leave **Coleco RGB geometry pass** at its supplied value: **0** for Clean/S-Video
 and **1** for Badly Adjusted. It selects the operation rather than its strength.
 
+The shader's **Integer Scaling: Odd:Y, Even:'X'+Y** control is separate from
+RetroArch's integer-scaling setting. Values **1** and **2** fit whole multiples
+of the game's native height; when even one multiple is too tall, they use a
+fractional fit to keep the complete picture. Values **3** and **4** keep their
+overscale behavior and may crop. The supplied value of **0** disables this
+additional shader scaling.
+
 [Save your preset](#save-your-choice) to keep the changes.
 
 ## Update an existing installation
@@ -238,10 +252,10 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.4 update includes the earlier fixes and needs the supplied presets and
-all four files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
+The v10.5 update includes the earlier fixes and needs the supplied presets and
+all five files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
 these fixes. Older full saved presets may still point to the shared horizontal
-filter or scanline stage; reload a supplied preset, enable **Simple Presets**,
+filter, scanline or deconvergence stage; reload a supplied preset, enable **Simple Presets**,
 and save it again.
 
 Saved presets can refer to the original files by path. If you rename or move
@@ -272,6 +286,7 @@ For missing-file errors, shared dependencies belong under
 - `OptiShaders/shaders/optishaders-colecovision-yc-pass1.slang`
 - `OptiShaders/shaders/optishaders-guest-ntsc-pass1.slang`
 - `OptiShaders/shaders/optishaders-guest-ntsc-pass2.slang`
+- `OptiShaders/shaders/optishaders-guest-deconvergence-ntsc.slang`
 
 ### Saved preset stalls at startup
 
@@ -292,9 +307,9 @@ Presets are adapted from
 shaders are by guest(r), Dr. Venom, and contributors, distributed through
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
-The two bundled Guest stages include OptiShaders changes for scanline
-boundaries, extreme scanline settings, zero horizontal-filter weight sums, and
-**Sharpness Definition** set to **0**.
+The three bundled Guest stages include OptiShaders changes for scanline
+boundaries, extreme scanline settings, zero horizontal-filter weight sums,
+**Sharpness Definition** set to **0**, and integer scaling in small viewports.
 They retain their upstream copyright notices and GPL-2.0-or-later license. The
 two custom signal stages use the supplied MIT license.
 
