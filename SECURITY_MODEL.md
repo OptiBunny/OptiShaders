@@ -6,7 +6,8 @@ inventory and integer-scaling safeguards below were updated for v10.5 on
 the evidence limits still apply. Nonnegative bloom and positive-halation power
 bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
 bounded for v10.8 on the same date. Animated-noise phase precision was corrected
-for v10.9 on the same date.
+for v10.9 on the same date. Humbar phase precision was corrected for v10.10
+on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -105,6 +106,13 @@ validation. Development tooling is not part of this public product repository:
   modulo 6001 as an unsigned integer before conversion to float. This preserves
   its intended phase when adjacent large counters would otherwise collapse to
   the same float; the fixed negative-noise seed and disabled branch are retained.
+  The optional humbar reduces the unsigned counter using the exact binary32
+  ratio of each supported speed from 5 through 200, preserving fractional saved
+  settings. Its integer remainder uses at most 21 bounded doubling steps, with
+  each intermediate below 2^25; integer speeds need no doubling steps. Only the
+  bounded remainder is converted to float and scaled by a power of two. The
+  intensity-zero bypass, speed-minus-one divisor and direction controls remain
+  unchanged. Values outside the declared speed range retain their prior formula.
   A correction for one arithmetic case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.

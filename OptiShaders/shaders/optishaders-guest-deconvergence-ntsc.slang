@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: preserve the humbar frame phase
+// at large unsigned counters, including fractional speed settings.
+
 // OptiShaders modification, 2026-11-23: reduce the unsigned noise frame
 // phase before float conversion so large counters preserve animation.
 
@@ -572,7 +575,28 @@ float humbar(float pos)
 	if (global.barintensity == 0.0) return 1.0; else
 	{
 		pos = (global.barintensity >= 0.0) ? pos : (1.0-pos);
-		pos = fract(pos + mod(float(global.FrameCount),global.barspeed)/(global.barspeed-1.0));
+		float framePhase;
+		if (global.barspeed >= 5.0 && global.barspeed <= 200.0)
+		{
+			// A supported binary32 speed is numerator / 2^shift. Cancel
+			// common factors so whole-number speeds need no doubling steps.
+			uint speedBits = floatBitsToUint(global.barspeed);
+			uint numerator = (speedBits & 0x7fffffu) | 0x800000u;
+			uint shift = 150u - (speedBits >> 23u);
+			uint commonShift = min(uint(findLSB(numerator)), shift);
+			numerator >>= commonShift;
+			shift -= commonShift;
+			uint remainder = global.FrameCount % numerator;
+			// At most 21 steps; each doubled remainder stays below 2^25.
+			for (uint bitIndex = 0u; bitIndex < shift; ++bitIndex)
+			{
+				remainder <<= 1u;
+				if (remainder >= numerator) remainder -= numerator;
+			}
+			framePhase = ldexp(float(remainder), -int(shift));
+		}
+		else framePhase = mod(float(global.FrameCount), global.barspeed);
+		pos = fract(pos + framePhase/(global.barspeed-1.0));
 		pos = (global.barintensity <  0.0) ? pos : (1.0-pos);	
 		return (1.0-global.barintensity) + global.barintensity*pos;
 	}	

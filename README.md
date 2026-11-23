@@ -2,15 +2,15 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.9 · 63 presets · 9 looks · 720p to 4K**
+**v10.10 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-Keeps optional animated **Add Noise** from repeating frames when the frame counter
-becomes large. Supplied preset settings are unchanged. Earlier mask, bloom,
-halation, curvature, **Integer Scaling** and **Speedup w. higher Internal Res.**
-corrections remain included.
+Preserves optional **Hum Bar** motion when the frame counter becomes large,
+including saved fractional **Hum Bar Speed** settings. Supplied preset settings
+are unchanged. Earlier **Add Noise**, mask, bloom, halation, curvature,
+**Integer Scaling** and **Speedup w. higher Internal Res.** corrections remain included.
 
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
@@ -68,5 +68,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-3eb40d985de1d3ab65abc6ade9495968860067f0e59641819e44aed2b27c841e
+66a42cdbe9d556336a6a452975264b8b56c36a194dde428b6bfea722fed2002c
 ```
