@@ -4,7 +4,8 @@ Initial model reviewed against the public v10.2 pack, 2026-11-05. The dependency
 inventory and integer-scaling safeguards below were updated for v10.5 on
 2026-11-22. Curvature-domain safeguards were added for v10.6 on the same date;
 the evidence limits still apply. Nonnegative bloom and positive-halation power
-bases were added for v10.7 on 2026-11-23.
+bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
+bounded for v10.8 on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -97,8 +98,10 @@ validation. Development tooling is not part of this public product repository:
   Brightness boost can extrapolate final bloom and positive-halation contributions
   below zero. Their power bases are lower-bounded at zero before fractional
   gamma conversion; nonnegative bases and the negative-halation branch retain
-  their calculations. A fallback for one undefined case is not proof that all
-  arithmetic is safe.
+  their calculations. The mask-width lookup lower-bounds its index at zero for
+  the disabled-mask sentinel; the original mask control and enabled indices
+  0 through 14 are preserved. A fallback for one undefined case is not proof
+  that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.
 - Keep release membership explicit and verify ZIP bytes, metadata, and extraction
