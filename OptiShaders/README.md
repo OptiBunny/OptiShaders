@@ -2,21 +2,26 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.11 · 63 presets · 9 looks · 720p to 4K**
+**v10.12 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.11
+## What's new in v10.12
+
+- Corrects **Rolling Scanlines** phase when the frame counter becomes large,
+  preserving motion and the scanline position within each row. Both directions
+  and saved fractional speeds remain supported. All supplied presets keep this
+  optional effect at **0**, and their settings are unchanged by this update.
+
+The pack also includes these earlier fixes:
 
 - Keeps odd/even fields alternating in enabled normal **Interlace Mode** settings
   (**1–3** and **6**) when the frame counter becomes large. Supplied presets keep
   this control at **0** (off); interpolation modes **4–5** are unchanged. Reload
   a supplied preset when updating so its new field-counter setting is included.
-
-The pack also includes these earlier fixes:
 
 - Keeps optional **Hum Bar** motion at the intended phase when the frame counter
   becomes large. The correction covers **Hum Bar Speed** settings from **5** to
@@ -280,7 +285,7 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.11 update includes the earlier fixes and needs the supplied presets and
+The v10.12 update includes the earlier fixes and needs the supplied presets and
 all five files in the bundled `shaders/` folder. Updating the shared Slang
 collection alone does not install these fixes. Older full saved presets may
 still use older shader paths or omit the field-counter setting. Reload a supplied
