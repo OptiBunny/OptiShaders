@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: reduce the unsigned noise frame
+// phase before float conversion so large counters preserve animation.
+
 // OptiShaders modification, 2026-11-23: keep the disabled-mask value
 // from indexing before the mask-width table.
 
@@ -912,7 +915,7 @@ else{
 	
 	if (abs(global.addnoised) > 0.01) 
 	{
-		vec3 noise0 = noise(vec3(floor(OutputSize.xy * vTexCoord / global.noiseresd), float(global.FrameCount)));
+		vec3 noise0 = noise(vec3(floor(OutputSize.xy * vTexCoord / global.noiseresd), float(global.FrameCount % 6001u)));
 		if (global.noisetype < 0.5) color = mix(color, noise0, 0.25*abs(global.addnoised) * rc); 
 		else color = min(color * mix(1.0, 1.5*noise0.x, 0.5*abs(global.addnoised)), 1.0);
 	}

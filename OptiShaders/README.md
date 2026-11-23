@@ -2,20 +2,25 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.8 · 63 presets · 9 looks · 720p to 4K**
+**v10.9 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.8
+## What's new in v10.9
+
+- Prevents repeated frames in animated **Add Noise** when the frame counter
+  becomes large. This affects positive noise amounts in both **Colored** and
+  **Luma** modes. Negative amounts keep their fixed pattern, and all supplied
+  presets still leave this optional effect at **0**.
+
+The pack also includes these earlier fixes:
 
 - Keeps the mask-width table lookup in range when **CRT Mask** is disabled
   (value **-1**), including all nine supplied Steam Deck presets. The disabled
   mask control and all enabled mask selections retain their behavior.
-
-The pack also includes these earlier fixes:
 
 - Keeps bloom and positive halation calculations defined at high custom
   **Bright Boost Dark Pixels** or **Bright Boost Bright Pixels** settings.
@@ -323,8 +328,8 @@ shaders are by guest(r), Dr. Venom, and contributors, distributed through
 The three bundled Guest stages include OptiShaders changes for scanline
 boundaries, extreme scanline settings, zero horizontal-filter weight sums,
 **Sharpness Definition** set to **0**, integer scaling in small viewports,
-bloom/halation power inputs at high brightness boosts, and disabled-mask table
-lookup bounds.
+bloom/halation power inputs at high brightness boosts, disabled-mask table
+lookup bounds, and animated-noise phase precision at large frame counters.
 They retain their upstream copyright notices and GPL-2.0-or-later license. The
 two custom signal stages use the supplied MIT license.
 
