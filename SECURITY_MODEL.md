@@ -7,7 +7,7 @@ the evidence limits still apply. Nonnegative bloom and positive-halation power
 bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
 bounded for v10.8 on the same date. Animated-noise phase precision was corrected
 for v10.9 on the same date. Humbar phase precision was corrected for v10.10
-on the same date.
+and enabled interlace field parity for v10.11 on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -113,6 +113,13 @@ validation. Development tooling is not part of this public product repository:
   bounded remainder is converted to float and scaled by a power of two. The
   intensity-zero bypass, speed-minus-one divisor and direction controls remain
   unchanged. Values outside the declared speed range retain their prior formula.
+  Enabled interlace field parity is reduced as an unsigned integer before float
+  conversion. The supplied presets set `frame_count_mod10` to 2 only for the
+  shared linearizer at pass 10, whose counter is used only for field parity in
+  the reviewed dependency. The bundled scanline stage at pass 16 reduces its
+  own field parity while retaining the full counter for rolling scanlines.
+  Preserve that pass mapping, the disabled defaults and the other pass counters;
+  review the contract again if a shared dependency or custom chain changes.
   A correction for one arithmetic case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.
