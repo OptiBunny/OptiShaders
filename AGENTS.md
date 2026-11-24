@@ -1,7 +1,7 @@
 # OptiShaders repository guidance
 
 OptiShaders is a ColecoVision shader preset pack for RetroArch with Gearcoleco.
-The current v10.4 pack contains 63 presets and four bundled shader stages.
+The current v10.5 pack contains 63 presets and five bundled shader stages.
 Use [the user guide](OptiShaders/README.md) for installation, prerequisites,
 expected settings, updates, and troubleshooting.
 
@@ -41,7 +41,7 @@ These documents guide review; they do not establish that a change is correct.
 - RetroArch, Gearcoleco, BIOS, games, and the remaining Slang shaders are separate
   prerequisites. RetroCrisis is an upstream source of the presets; users do not
   need a separate RetroCrisis installation. Keep that distinction in the docs.
-- Preserve the four bundled shader files and their preset references together.
+- Preserve the five bundled shader files and their preset references together.
   Updating the shared Slang collection does not replace these local stages.
   Saved full presets may retain old paths; check the documented update workflow.
 

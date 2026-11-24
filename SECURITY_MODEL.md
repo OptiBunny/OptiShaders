@@ -1,6 +1,8 @@
 # OptiShaders security model
 
-Reviewed against the public v10.2 pack, 2026-11-05.
+Initial model reviewed against the public v10.2 pack, 2026-11-05. The dependency
+inventory and integer-scaling safeguards below were updated for v10.5 on
+2026-11-22; the evidence limits still apply.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -18,7 +20,7 @@ that all inputs, GPUs, and future dependency versions have been tested.
 
 ## Scope and dependencies
 
-The pack contains 63 `.slangp` presets, four `.slang` shader sources, a user
+The pack contains 63 `.slangp` presets, five `.slang` shader sources, a user
 guide, and license texts. It contains no emulator executable, core, BIOS, game,
 installer, background service, or network client. Installation is a file-copy
 operation performed by the user or their chosen extraction tool.
@@ -27,6 +29,9 @@ The presets are adapted from RetroCrisis. A separate RetroCrisis installation
 is not required. RetroArch, Gearcoleco, the BIOS, games, and the shared Slang
 shader collection are installed separately. The pack expects shared Guest
 stages and lookup images under `shaders_slang/crt/`, alongside `OptiShaders/`.
+The final deconvergence stage is now bundled with the scanline stage so both
+apply the same small-viewport integer-scaling safeguard. Its upstream revision
+and modification notice are retained in the source.
 
 RetroArch parses presets, resolves references, compiles shaders through its
 graphics backend, and supplies textures and parameters for execution. The
@@ -80,6 +85,9 @@ validation. Development tooling is not part of this public product repository:
   legitimate parent-relative paths fully and inspect every new loading surface.
 - Preserve the bundled horizontal-filter zero-weight fallback and stable
   scanline normalization, including the earlier scanline-boundary behavior.
+  Keep the scanline and deconvergence integer-scaling guards in agreement:
+  floor modes use fractional fit when no positive integer scale fits, while
+  valid integer scales and the interlace bypass keep their existing behavior.
   A fallback for one undefined case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.

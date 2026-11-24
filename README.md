@@ -2,14 +2,15 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.4 · 63 presets · 9 looks · 720p to 4K**
+**v10.5 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-The seven looks that encode the video signal now show the full picture when you
-raise **Speedup w. higher Internal Res.** to **2**, **3**, or **4**. All
-supplied presets use the default value of **1**.
+Custom shader **Integer Scaling** values **1** and **2** now fall back to
+fractional scaling when the viewport is shorter than the game image, keeping
+the full picture visible. The supplied **IOS = 0** setting is unchanged. This update
+retains the earlier correction for higher **Speedup w. higher Internal Res.** settings.
 
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
@@ -51,8 +52,8 @@ Presets are adapted from
 CRT shaders by guest(r), Dr. Venom, and contributors from
 [libretro's Slang collection](https://github.com/libretro/slang-shaders).
 
-OptiShaders includes its presets and four shader stages: two custom signal
-stages and modified Guest horizontal-filter and scanline stages. RetroArch,
+OptiShaders includes its presets and five shader stages: two custom signal
+stages and modified Guest horizontal-filter, scanline and deconvergence stages. RetroArch,
 Gearcoleco, the BIOS, games, and the remaining shared Slang shaders are installed
 separately.
 
@@ -67,5 +68,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-2bbbffae672cdc7f284984ed4f9fb9371d2985f1403a0bc8a7138b5a54b90c83
+cf26e2a75ec837b4c5dfbd208120c39621ff8e58ab696f1291119e96a3f3374e
 ```
