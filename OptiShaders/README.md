@@ -2,21 +2,28 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.12 · 63 presets · 9 looks · 720p to 4K**
+**v10.13 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.12
+## What's new in v10.13
+
+- Keeps **NTSC RF Noise** active when the frame counter becomes large. The RF
+  look enables this noise by default; the same correction applies when you
+  enable it in the other NTSC signal looks. **RGB** and **RGB 100** are unchanged.
+- RF noise now uses a repeating **65,536-frame seed cycle**. The first 65,536
+  frame seeds and the noise controls are unchanged. Reload a supplied preset
+  after updating so the new setting is included.
+
+The pack also includes these earlier fixes:
 
 - Corrects **Rolling Scanlines** phase when the frame counter becomes large,
   preserving motion and the scanline position within each row. Both directions
   and saved fractional speeds remain supported. All supplied presets keep this
-  optional effect at **0**, and their settings are unchanged by this update.
-
-The pack also includes these earlier fixes:
+  optional effect at **0**.
 
 - Keeps odd/even fields alternating in enabled normal **Interlace Mode** settings
   (**1–3** and **6**) when the frame counter becomes large. Supplied presets keep
@@ -285,11 +292,12 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.12 update includes the earlier fixes and needs the supplied presets and
+The v10.13 update includes the earlier fixes and needs the supplied presets and
 all five files in the bundled `shaders/` folder. Updating the shared Slang
 collection alone does not install these fixes. Older full saved presets may
-still use older shader paths or omit the field-counter setting. Reload a supplied
-preset, reapply your adjustments, enable **Simple Presets**, and save it again.
+still use older shader paths or omit the field and RF-noise counter settings.
+Reload a supplied preset, reapply your adjustments, enable **Simple Presets**,
+and save it again.
 Replacing shader files alone does not update a saved full preset.
 
 Saved presets can refer to the original files by path. If you rename or move

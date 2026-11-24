@@ -2,16 +2,16 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.12 · 63 presets · 9 looks · 720p to 4K**
+**v10.13 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-Corrects **Rolling Scanlines** phase when the frame counter becomes large,
-including fractional speeds and both directions. Supplied presets keep this
-effect disabled. Earlier **Interlace Mode**, **Hum Bar**, **Add Noise**, mask,
-bloom, halation, curvature, **Integer Scaling** and **Speedup w. higher Internal
-Res.** corrections remain included.
+Keeps **NTSC RF Noise** active when the frame counter becomes large, using a
+65,536-frame seed cycle in the NTSC signal presets. **RGB** and **RGB 100** are
+unchanged. Earlier **Rolling Scanlines**, **Interlace Mode**, **Hum Bar**,
+**Add Noise**, mask, bloom, halation, curvature, **Integer Scaling** and
+**Speedup w. higher Internal Res.** corrections remain included.
 
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
@@ -69,5 +69,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-5edf98c94f63d1ebf437ef93c1c956710a2bb541084633363b4cc6ba7f2428e6
+2dd92c4354e6695b998f54d7448e0d36ced135990ff2902fad603964374032f4
 ```

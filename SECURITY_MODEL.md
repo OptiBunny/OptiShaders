@@ -8,7 +8,8 @@ bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
 bounded for v10.8 on the same date. Animated-noise phase precision was corrected
 for v10.9 on the same date. Humbar phase precision was corrected for v10.10
 and enabled interlace field parity for v10.11 on the same date. Rolling-scan
-phase precision was corrected for v10.12 on the same date.
+phase precision was corrected for v10.12 on the same date. RF temporal
+noise uses a bounded seed cycle from v10.13, also on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -119,7 +120,7 @@ validation. Development tooling is not part of this public product repository:
   shared linearizer at pass 10, whose counter is used only for field parity in
   the reviewed dependency. The bundled scanline stage at pass 16 reduces its
   own field parity while retaining the full counter for rolling scanlines.
-  Preserve that pass mapping, the disabled defaults and the other pass counters;
+  Preserve that pass mapping, the disabled defaults and the full pass-16 counter;
   review the contract again if a shared dependency or custom chain changes.
   Rolling-scan phase retains the full unsigned counter and the separate stored
   binary32 speed and pixel-scale factors. Their integer significands form an
@@ -132,6 +133,21 @@ validation. Development tooling is not part of this public product repository:
   the declared speed range or finite positive pixel-scale domain retain the
   earlier expression. Do not replace this calculation with a fixed frame period
   or a rounded speed-times-scale product.
+  RF signal noise uses a deliberate 65,536-frame seed cycle in the 49 supplied
+  NTSC signal presets. Only their shared NTSC reconstruction stage at pass 6
+  receives `frame_count_mod6 = "65536"`; the 14 RGB presets using a stock stage
+  at that position remain unchanged. This is a new bounded seed policy, not a
+  claimed period of the upstream noise hash. It preserves the first 65,536
+  counter values and integer odd/even parity while bounding time inputs before
+  float conversion. For custom rainbow settings, this also prevents loss of
+  frame parity in that conversion. The cycle applies when RF noise is enabled
+  in the 42 NTSC presets whose noise gains default to zero, as well as the seven
+  supplied RF looks. Noise levels, other pass counters, the pass-10 modulus of
+  2 and the full pass-16 counter used for rolling scanlines remain unchanged.
+  At shared Slang revision `2345ee91602a7404d3a1a6a5df6108d7305fdad4`, pass 6
+  uses its counter only for RF noise and rainbow parity. Review this policy
+  again if that dependency or a custom chain introduces another counter use.
+  A repeating seed does not imply repetition of the complete picture or history.
   A correction for one arithmetic case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.
