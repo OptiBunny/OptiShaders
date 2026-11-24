@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: retain exact odd/even field
+// parity before float conversion while preserving the rolling-scan counter.
+
 // OptiShaders modification, 2026-11-22: preserve finite outside-image
 // coordinates when shift or overscan exceeds the curvature domain.
 
@@ -354,7 +357,7 @@ void main()
 
 	// odd / even field line calcs for mode 6
 
-	float ii = float(inter6)*(floor(mod(float(global.FrameCount), 2.0)));
+	float ii = float(inter6)*float(global.FrameCount % 2u);
 
 	vec2 coffset = vec2(0.5, 0.5 + 0.5*ii);
 	

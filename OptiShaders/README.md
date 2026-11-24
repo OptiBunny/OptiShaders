@@ -2,21 +2,26 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.10 · 63 presets · 9 looks · 720p to 4K**
+**v10.11 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.10
+## What's new in v10.11
+
+- Keeps odd/even fields alternating in enabled normal **Interlace Mode** settings
+  (**1–3** and **6**) when the frame counter becomes large. Supplied presets keep
+  this control at **0** (off); interpolation modes **4–5** are unchanged. Reload
+  a supplied preset when updating so its new field-counter setting is included.
+
+The pack also includes these earlier fixes:
 
 - Keeps optional **Hum Bar** motion at the intended phase when the frame counter
   becomes large. The correction covers **Hum Bar Speed** settings from **5** to
   **200**, including saved fractional values. The intensity and direction
   controls are unchanged, and all supplied presets leave this effect at **0**.
-
-The pack also includes these earlier fixes:
 
 - Prevents repeated frames in animated **Add Noise** when the frame counter
   becomes large. This affects positive noise amounts in both **Colored** and
@@ -275,11 +280,12 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.6 update includes the earlier fixes and needs the supplied presets and
-all five files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
-these fixes. Older full saved presets may still point to the shared horizontal
-filter, scanline or deconvergence stage; reload a supplied preset, enable **Simple Presets**,
-and save it again.
+The v10.11 update includes the earlier fixes and needs the supplied presets and
+all five files in the bundled `shaders/` folder. Updating the shared Slang
+collection alone does not install these fixes. Older full saved presets may
+still use older shader paths or omit the field-counter setting. Reload a supplied
+preset, reapply your adjustments, enable **Simple Presets**, and save it again.
+Replacing shader files alone does not update a saved full preset.
 
 Saved presets can refer to the original files by path. If you rename or move
 the pack, load a preset from its new location and save it again.
