@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: keep the disabled-mask value
+// from indexing before the mask-width table.
+
 // OptiShaders modification, 2026-11-23: keep bloom and positive-halation
 // power bases nonnegative when brightness boost exceeds the unit range.
 
@@ -757,7 +760,7 @@ if ((abs(global.deconrr) + abs(global.deconrry) + abs(global.deconrg) + abs(glob
 	// mask widths and mask dark compensate (fractional part) values
 	float mwidths[15] = float[15] (2.0, 3.0, 3.0, 6.0, 6.0, 2.4, 3.4, 2.4, 3.25, 3.4, 4.4, 4.25, 7.4, 6.25, 5.25); 
 	
-	float mwidth = mwidths[int(shadowMask)];
+	float mwidth = mwidths[max(int(shadowMask), 0)];
 	float mask_compensate = fract(mwidth);
 	float mwidth1 = mwidth;
 	

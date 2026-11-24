@@ -2,21 +2,25 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.7 · 63 presets · 9 looks · 720p to 4K**
+**v10.8 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.7
+## What's new in v10.8
+
+- Keeps the mask-width table lookup in range when **CRT Mask** is disabled
+  (value **-1**), including all nine supplied Steam Deck presets. The disabled
+  mask control and all enabled mask selections retain their behavior.
+
+The pack also includes these earlier fixes:
 
 - Keeps bloom and positive halation calculations defined at high custom
   **Bright Boost Dark Pixels** or **Bright Boost Bright Pixels** settings.
   Negative light contributions are bounded at zero before gamma conversion.
   The supplied presets and their default settings are unchanged.
-
-The pack also includes these earlier fixes:
 
 - Prevents bright corner artefacts and undefined pixels when custom vertical
   shift or negative overscan settings move the picture away from the viewport
@@ -318,8 +322,9 @@ shaders are by guest(r), Dr. Venom, and contributors, distributed through
 
 The three bundled Guest stages include OptiShaders changes for scanline
 boundaries, extreme scanline settings, zero horizontal-filter weight sums,
-**Sharpness Definition** set to **0**, integer scaling in small viewports, and
-bloom/halation power inputs at high brightness boosts.
+**Sharpness Definition** set to **0**, integer scaling in small viewports,
+bloom/halation power inputs at high brightness boosts, and disabled-mask table
+lookup bounds.
 They retain their upstream copyright notices and GPL-2.0-or-later license. The
 two custom signal stages use the supplied MIT license.
 
