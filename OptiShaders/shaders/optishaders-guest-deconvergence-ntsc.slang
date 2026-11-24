@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: keep bloom and positive-halation
+// power bases nonnegative when brightness boost exceeds the unit range.
+
 // OptiShaders modification, 2026-11-22: preserve finite outside-image
 // coordinates when shift or overscan exceeds the curvature domain.
 
@@ -841,7 +844,7 @@ else{
 		Bloom1 = min(Bloom1*(orig1+color), max(0.5*(colmx + orig1 - color),0.001*Bloom1));
 		Bloom1 = 0.5*(Bloom1 + mix(Bloom1, mix(colmx*orig1, Bloom1, 0.5), 1.0-color));
 		Bloom1 = bcmask*Bloom1 * max(mix(1.0, 2.0-colmx, bloom_dist), 0.0);
-		color = pow(pow(color, vec3(mask_gamma/gamma_in)) + abs(bloom) * pow(Bloom1, vec3(mask_gamma/gamma_in)), vec3(gamma_in/mask_gamma));
+		color = pow(pow(color, vec3(mask_gamma/gamma_in)) + abs(bloom) * pow(max(Bloom1, vec3(0.0)), vec3(mask_gamma/gamma_in)), vec3(gamma_in/mask_gamma));
 	}
 
 	if (halation > 0.01) {
@@ -850,7 +853,7 @@ else{
 		mbl = mix(mix(cmxh,mix(cmxh,mbl,mbl),colmx), mbl, mb);
 		Bloom = plant(Bloom, mix(sqrt(mbl*cmxh), max((mbl - 0.15*(1.0-colmx)), 0.4*cmxh), pow(colmx, 0.25))) * mix(0.425, 1.0, colmx);
 		Bloom = (3.0 - colmx - color)*plant(0.325+orig1/w3, 0.5*(1.0+w3))*hcmask*Bloom;
-		color = pow(pow(color, vec3(mask_gamma/gamma_in)) + halation * pow(Bloom, vec3(mask_gamma/gamma_in)), vec3(gamma_in/mask_gamma));
+		color = pow(pow(color, vec3(mask_gamma/gamma_in)) + halation * pow(max(Bloom, vec3(0.0)), vec3(mask_gamma/gamma_in)), vec3(gamma_in/mask_gamma));
 	}
 	else
 	if (halation < -0.01) {
