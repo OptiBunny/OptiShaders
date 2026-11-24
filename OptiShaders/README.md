@@ -2,22 +2,23 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.3 · 63 presets · 9 looks · 720p to 4K**
+**v10.4 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.3
+## What's new in v10.4
 
-- Avoids an undefined horizontal-filter calculation when **Sharpness Definition**
-  is set to **0**.
+- Fixes horizontal cropping when **Speedup w. higher Internal Res.** is set to
+  **2**, **3**, or **4** in the seven looks that use signal encoding. Previously,
+  setting it to **2**, for example, stretched the left half across the screen.
+  All supplied presets use **1**. The **RGB** and **RGB 100** looks bypass encoding.
 
-The supplied preset settings are unchanged. The earlier fixes for washed-out
-output at extreme scanline settings, dark vertical lines at certain horizontal-filter
-settings, and scanline boundaries remain included. For an existing installation,
-follow the [update steps](#update-an-existing-installation).
+This version includes the earlier corrections to scanline rendering and
+horizontal filtering, including **Sharpness Definition** at **0**. For an
+existing installation, follow the [update steps](#update-an-existing-installation).
 
 ## Prerequisites
 
@@ -165,7 +166,7 @@ Every folder contains the same nine looks:
 | **Composite 100** | Composite signal treatment with a distinct RetroCrisis 100 CRT profile. |
 
 Open **Quick Menu → Shaders**, turn **Video Shaders** on, and choose
-**Load Shader Preset**. For example, the 1080p Flat Composite preset is:
+**Load Preset**. For example, the 1080p Flat Composite preset is:
 
 ```text
 OptiShaders/1080p Flat/OptiShaders - ColecoVision - Composite.slangp
@@ -180,16 +181,20 @@ when comparing looks.
 After loading a preset, open **Quick Menu → Shaders**:
 
 1. Make any changes under **Shader Parameters**.
-2. Open **Save** and turn **Simple Presets** on.
+2. Open **Manage Presets** and turn **Simple Presets** on.
 3. Choose **Save Core Preset** to use this look with Gearcoleco.
 
 For a different look in one game, load that game and the desired shader, then
-choose **Save → Save Game Preset**.
+choose **Manage Presets → Save Game Preset**.
 
 Automatic presets load in this order of priority: **Game → Content Directory →
-Core → Global**. If a game or folder keeps loading a different look, open **Save**
-and check **Remove Game Preset** or **Remove Content Directory Preset**. Remove
-only the saved override you no longer want.
+Core → Global**. If a game or folder keeps loading a different look, open **Manage
+Presets** while that game is running. **Remove Game Preset** and **Remove Content
+Directory Preset** appear when the corresponding override exists. Remove only
+the override you no longer want.
+
+RetroArch 1.21 uses separate **Save Preset** and **Remove Preset** menus for these
+actions. RetroArch 1.22.2 groups them under **Manage Presets**.
 
 Save again after making further parameter changes.
 
@@ -229,11 +234,11 @@ and **1** for Badly Adjusted. It selects the operation rather than its strength.
    before removing an older installation.
 
 Automatic shader presets normally live in RetroArch's configuration directory.
-Files saved with **Save Shader Preset As** normally use the configured **Video
+Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.3 update includes the earlier fixes and needs the supplied presets and
+The v10.4 update includes the earlier fixes and needs the supplied presets and
 all four files in the bundled `shaders/` folder. Updating the shared Slang collection alone does not install
 these fixes. Older full saved presets may still point to the shared horizontal
 filter or scanline stage; reload a supplied preset, enable **Simple Presets**,

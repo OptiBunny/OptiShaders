@@ -1,5 +1,6 @@
 #version 450
 // SPDX-License-Identifier: MIT
+// 2026-11-22: match the decoder's packed signal width at higher speedup settings.
 // ColecoVision NTSC encoder, custom adaptation, 2026-09-15.
 // Original implementation of a fixed-phase RGB-to-YIQ modulation stage.
 // Interface compatible with guest(r)'s NTSC-Adaptive decode passes, based on
@@ -21,6 +22,7 @@ layout(push_constant) uniform Push
     float ntsc_gamma;
     float cv_phase_offset;
     float cv_board_strength;
+    float speedup;
 } params;
 
 layout(std140, set = 0, binding = 0) uniform UBO
@@ -36,6 +38,7 @@ layout(std140, set = 0, binding = 0) uniform UBO
 #pragma parameter cv_phase_offset "Coleco NTSC carrier phase offset (cycles)" 0.0 0.0 1.0 0.08333333
 
 #pragma parameter cv_board_strength "Coleco experimental board response" 0.0 0.0 1.0 0.25
+#pragma parameter speedup "          Speedup w. higher Internal Res." 1.0 1.0 4.0 1.0
 
 #pragma stage vertex
 layout(location = 0) in vec4 Position;
@@ -45,7 +48,8 @@ layout(location = 0) out vec2 vTexCoord;
 void main()
 {
     gl_Position = global.MVP * Position;
-    vTexCoord = TexCoord;
+    // The decoder reads the signal from the left 1/speedup of the target.
+    vTexCoord = TexCoord * vec2(params.speedup, 1.0);
 }
 
 #pragma stage fragment
@@ -71,6 +75,10 @@ vec3 cv_board(vec2 uv) {
 
 void main()
 {
+    if (vTexCoord.x > 1.0) {
+        FragColor = vec4(0.0);
+        return;
+    }
     vec3 rgb = cv_board(vTexCoord);
     float y = pow(max(dot(rgb, vec3(0.2989, 0.5870, 0.1140)), 0.0), params.ntsc_gamma);
     float i = dot(rgb, vec3(0.5959, -0.2744, -0.3216));

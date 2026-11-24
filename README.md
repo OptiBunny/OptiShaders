@@ -2,14 +2,14 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.3 · 63 presets · 9 looks · 720p to 4K**
+**v10.4 · 63 presets · 9 looks · 720p to 4K**
 
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-This update avoids an undefined horizontal-filter calculation when **Sharpness
-Definition** is set to **0**. It retains the earlier scanline and horizontal-filter
-fixes. The supplied preset settings are unchanged.
+The seven looks that encode the video signal now show the full picture when you
+raise **Speedup w. higher Internal Res.** to **2**, **3**, or **4**. All
+supplied presets use the default value of **1**.
 
 For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
 
@@ -28,9 +28,9 @@ not already installed.
 4. Start a ColecoVision game with Gearcoleco and apply the
    [core and display settings](OptiShaders/README.md#set-up-the-core-and-display).
 5. Open **Quick Menu → Shaders**, turn **Video Shaders** on, and choose
-   **Load Shader Preset**. Pick a preset from the folder matching your
+   **Load Preset**. Pick a preset from the folder matching your
    [output resolution](OptiShaders/README.md#choose-a-preset).
-6. Open **Save**, turn **Simple Presets** on, then choose **Save Core Preset**
+6. Open **Manage Presets**, turn **Simple Presets** on, then choose **Save Core Preset**
    to use that look with Gearcoleco. See [saving and game overrides](OptiShaders/README.md#save-your-choice).
 
 ## Choose your look
@@ -67,5 +67,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-dc8e319611311247754345eb69d22175923df5d72d7e4ebb38d52dc0c8c1b059
+2bbbffae672cdc7f284984ed4f9fb9371d2985f1403a0bc8a7138b5a54b90c83
 ```

@@ -1,5 +1,6 @@
 #version 450
 // SPDX-License-Identifier: MIT
+// 2026-11-22: pack separated Y/C for decoder speedup; retain full-width RGB geometry.
 // Separated Y/C input for ColecoVision Clean and S-Video, 2026-09-16.
 // These presets deliberately omit Y/C crosstalk. Supply baseband YIQ to the
 // following Guest filters, retaining their independent luma/chroma bandwidth.
@@ -14,6 +15,7 @@ layout(push_constant) uniform Push
     float ntsc_sat;
     float ntsc_bright;
     float ntsc_gamma;
+    float speedup;
 } params;
 
 layout(std140, set = 0, binding = 0) uniform UBO
@@ -27,6 +29,7 @@ layout(std140, set = 0, binding = 0) uniform UBO
 
 #pragma parameter cv_rgb_passthrough "Coleco RGB geometry pass" 0.0 0.0 1.0 1.0
 #pragma parameter cv_skew "Coleco static picture skew (native pixels)" 0.0 -3.0 3.0 0.25
+#pragma parameter speedup "          Speedup w. higher Internal Res." 1.0 1.0 4.0 1.0
 
 #pragma stage vertex
 layout(location = 0) in vec4 Position;
@@ -36,7 +39,10 @@ layout(location = 0) out vec2 vTexCoord;
 void main()
 {
     gl_Position = global.MVP * Position;
-    vTexCoord = TexCoord;
+    // Only the encoder feeds the packed decoder input. The RGB geometry pass
+    // runs after decoding and always receives the full-width picture.
+    float scale = params.cv_rgb_passthrough > 0.5 ? 1.0 : params.speedup;
+    vTexCoord = TexCoord * vec2(scale, 1.0);
 }
 
 #pragma stage fragment
@@ -51,6 +57,10 @@ void main()
         float yy=2.0*uv.y-1.0;
         uv.x+=params.cv_skew*yy*yy*yy*params.OriginalSize.z;
         FragColor=vec4(texture(Source,uv).rgb,1.0);return;
+    }
+    if (uv.x > 1.0) {
+        FragColor = vec4(0.0);
+        return;
     }
     vec3 rgb=texture(Source,uv).rgb;
     float y = pow(max(dot(rgb, vec3(0.2989, 0.5870, 0.1140)), 0.0), params.ntsc_gamma);
