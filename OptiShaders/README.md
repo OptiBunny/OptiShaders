@@ -2,21 +2,26 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.9 · 63 presets · 9 looks · 720p to 4K**
+**v10.10 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.9
+## What's new in v10.10
+
+- Keeps optional **Hum Bar** motion at the intended phase when the frame counter
+  becomes large. The correction covers **Hum Bar Speed** settings from **5** to
+  **200**, including saved fractional values. The intensity and direction
+  controls are unchanged, and all supplied presets leave this effect at **0**.
+
+The pack also includes these earlier fixes:
 
 - Prevents repeated frames in animated **Add Noise** when the frame counter
   becomes large. This affects positive noise amounts in both **Colored** and
   **Luma** modes. Negative amounts keep their fixed pattern, and all supplied
   presets still leave this optional effect at **0**.
-
-The pack also includes these earlier fixes:
 
 - Keeps the mask-width table lookup in range when **CRT Mask** is disabled
   (value **-1**), including all nine supplied Steam Deck presets. The disabled
