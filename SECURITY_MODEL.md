@@ -5,7 +5,8 @@ inventory and integer-scaling safeguards below were updated for v10.5 on
 2026-11-22. Curvature-domain safeguards were added for v10.6 on the same date;
 the evidence limits still apply. Nonnegative bloom and positive-halation power
 bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
-bounded for v10.8 on the same date.
+bounded for v10.8 on the same date. Animated-noise phase precision was corrected
+for v10.9 on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -100,8 +101,11 @@ validation. Development tooling is not part of this public product repository:
   gamma conversion; nonnegative bases and the negative-halation branch retain
   their calculations. The mask-width lookup lower-bounds its index at zero for
   the disabled-mask sentinel; the original mask control and enabled indices
-  0 through 14 are preserved. A fallback for one undefined case is not proof
-  that all arithmetic is safe.
+  0 through 14 are preserved. The optional animated-noise counter is reduced
+  modulo 6001 as an unsigned integer before conversion to float. This preserves
+  its intended phase when adjacent large counters would otherwise collapse to
+  the same float; the fixed negative-noise seed and disabled branch are retained.
+  A correction for one arithmetic case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.
 - Keep release membership explicit and verify ZIP bytes, metadata, and extraction
