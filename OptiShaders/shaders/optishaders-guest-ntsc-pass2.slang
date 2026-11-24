@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-23: reduce the rolling-scan product
+// before float conversion so large counters retain the spatial fraction.
+
 // OptiShaders modification, 2026-11-23: retain exact odd/even field
 // parity before float conversion while preserving the rolling-scan counter.
 
@@ -309,6 +312,60 @@ vec3 plant (vec3 tar, float r)
 	return tar * r / t;
 }
 
+float rollingScanPhase(uint frame, float speed, float pixelScale)
+{
+    // Preserve the prior expression outside the declared speed/dimension domain.
+    if (!(abs(speed) <= 1.0) || !(pixelScale > 0.0) || isinf(pixelScale))
+        return speed * float(frame) * pixelScale;
+    if (speed == 0.0 || frame == 0u) return 0.0;
+
+    // Each stored binary32 factor is an integer significand times 2^exponent.
+    // Keep both factors separate: rounding their product first changes the
+    // phase at large counters, including for fractional saved speed settings.
+    uint speedBits = floatBitsToUint(abs(speed));
+    uint scaleBits = floatBitsToUint(pixelScale);
+    uint speedExponent = (speedBits >> 23) & 255u;
+    uint scaleExponent = (scaleBits >> 23) & 255u;
+    uint speedMantissa = (speedBits & 0x7fffffu) | (speedExponent == 0u ? 0u : 0x800000u);
+    uint scaleMantissa = (scaleBits & 0x7fffffu) | (scaleExponent == 0u ? 0u : 0x800000u);
+    int exponent = int(max(speedExponent, 1u)) + int(max(scaleExponent, 1u)) - 300;
+    if (exponent >= 0) return 0.0; // The entire product is an integer.
+
+    // Two 24-bit significands and the 32-bit counter need at most 80 bits.
+    uint productHigh, productLow, lowCarry, lo, mid, hi, carry;
+    umulExtended(speedMantissa, scaleMantissa, productHigh, productLow);
+    umulExtended(productLow, frame, lowCarry, lo);
+    umulExtended(productHigh, frame, hi, mid);
+    mid = uaddCarry(mid, lowCarry, carry);
+    hi += carry;
+
+    // Retain only the fractional bits, without any shift by 32 or more.
+    int fractionalBits = -exponent;
+    if (fractionalBits < 32) {
+        lo &= (1u << uint(fractionalBits)) - 1u;
+        mid = 0u;
+        hi = 0u;
+    } else if (fractionalBits == 32) {
+        mid = 0u;
+        hi = 0u;
+    } else if (fractionalBits < 64) {
+        mid &= (1u << uint(fractionalBits - 32)) - 1u;
+        hi = 0u;
+    } else if (fractionalBits == 64) {
+        hi = 0u;
+    } else if (fractionalBits < 96) {
+        hi &= (1u << uint(fractionalBits - 64)) - 1u;
+    }
+
+    // Convert only the bounded remainder. Normalize each limb before ldexp:
+    // a very small exponent may otherwise flush a still-significant product.
+    const float limbUnit = 1.0 / 4294967296.0;
+    precise float phase = ldexp(float(lo) * limbUnit, exponent + 32)
+                        + ldexp(float(mid) * limbUnit, exponent + 64)
+                        + ldexp(float(hi) * limbUnit, exponent + 96);
+    return speed < 0.0 ? -phase : phase;
+}
+
 
 void main()
 {
@@ -436,7 +493,7 @@ if (!interb || hscan)
 	if (tds > 0.5) { shape1 = mix(scanline2, shape1, creff1); shape2 = mix(scanline2, shape2, creff2); }
 
 	float scanpix = global.OriginalSize.y/OutputSize.y;
-	float f1 = fract(f - rolling_scan*float(global.FrameCount)*scanpix);
+	float f1 = fract(f - rollingScanPhase(global.FrameCount, rolling_scan, scanpix));
 	float f2 = 1.0 - f1;
 
 	float mc1 = max(max(color1.r,color1.g),color1.b) + eps;

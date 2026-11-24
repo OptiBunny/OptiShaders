@@ -7,7 +7,8 @@ the evidence limits still apply. Nonnegative bloom and positive-halation power
 bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
 bounded for v10.8 on the same date. Animated-noise phase precision was corrected
 for v10.9 on the same date. Humbar phase precision was corrected for v10.10
-and enabled interlace field parity for v10.11 on the same date.
+and enabled interlace field parity for v10.11 on the same date. Rolling-scan
+phase precision was corrected for v10.12 on the same date.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim
@@ -120,6 +121,17 @@ validation. Development tooling is not part of this public product repository:
   own field parity while retaining the full counter for rolling scanlines.
   Preserve that pass mapping, the disabled defaults and the other pass counters;
   review the contract again if a shared dependency or custom chain changes.
+  Rolling-scan phase retains the full unsigned counter and the separate stored
+  binary32 speed and pixel-scale factors. Their integer significands form an
+  exact product of at most 80 bits; the helper discards whole cycles before
+  converting the bounded remainder to float. Carry handling and shifts must
+  stay defined at every limb boundary. Reconstruction is approximate, and the
+  final spatial subtraction stays bounded; this is not a correctly rounded
+  guarantee for every input. Preserve both directions, fractional saved speeds,
+  the zero-speed bypass and the existing colour-blend threshold. Values outside
+  the declared speed range or finite positive pixel-scale domain retain the
+  earlier expression. Do not replace this calculation with a fixed frame period
+  or a rounded speed-times-scale product.
   A correction for one arithmetic case is not proof that all arithmetic is safe.
 - Preserve source attribution and the distinct MIT, GPL-3.0, and
   GPL-2.0-or-later notices supplied with the relevant components.
