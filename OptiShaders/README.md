@@ -12,9 +12,8 @@ CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcole
 ## What's new in v0.9.1
 
 OptiShaders uses three-part version numbers (major.minor.patch). The 0.x series
-contains development releases. Version 0.9.1 follows 0.9.0 and includes the
-changes below. If your installed guide says **v10.13**, you already have these
-shaders and presets.
+contains development releases. Version 0.9.1 follows 0.9.0. You can find the
+pack version at the top of this guide and in the first comment of each supplied preset.
 
 - Keeps **NTSC RF Noise** active when the frame counter becomes large. The RF
   look enables this noise by default; the same correction applies when you

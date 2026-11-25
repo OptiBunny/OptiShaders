@@ -7,8 +7,7 @@ CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcole
 [**Download OptiShaders**](downloads/OptiShaders-ColecoVision-Gearcoleco.zip?raw=true)
 · [**User guide**](OptiShaders/README.md)
 
-This development release follows 0.9.0. If your installed guide says **v10.13**,
-you already have the presets and shaders included in 0.9.1.
+This development release follows v0.9.0.
 
 Keeps **NTSC RF Noise** active when the frame counter becomes large, using a
 65,536-frame seed cycle in the NTSC signal presets. **RGB** and **RGB 100** are
@@ -72,5 +71,5 @@ Keep the supplied license notices with the pack:
 SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
 
 ```text
-3e689eacc30be8340f6d56d33c9886b16e7237c77de15742865d4324188994b1
+0bd1f6eb13048829e9a8332b22ae88f2717be28009986dfb78c926888a49486f
 ```
