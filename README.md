@@ -4,7 +4,7 @@ CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcole
 
 **v0.9.1 · 63 presets · 9 looks · 720p to 4K**
 
-[**Download OptiShaders**](https://github.com/OptiBunny/OptiShaders/releases/download/v0.9.1/OptiShaders-ColecoVision-Gearcoleco.zip) · [**User guide**](OptiShaders/README.md)
+[**Download OptiShaders**](https://github.com/OptiBunny/OptiShaders/releases/download/v0.9.1/OptiShaders-ColecoVision-Gearcoleco.zip) · [**User guide**](docs/USER_GUIDE.md)
 
 [v0.9.1](https://github.com/OptiBunny/OptiShaders/releases/tag/v0.9.1) follows v0.9.0.
 
@@ -14,27 +14,27 @@ unchanged. Earlier **Rolling Scanlines**, **Interlace Mode**, **Hum Bar**,
 **Add Noise**, mask, bloom, halation, curvature, **Integer Scaling** and
 **Speedup w. higher Internal Res.** corrections remain included.
 
-For an existing installation, follow the [update steps](OptiShaders/README.md#update-an-existing-installation).
+For an existing installation, follow the [update steps](docs/USER_GUIDE.md#update-an-existing-installation).
 
 ## Quick start
 
 You need **RetroArch with a Slang-compatible video driver**, **Gearcoleco**,
 the **ColecoVision BIOS**, a game, and **RetroArch's Slang shader collection**.
-See [prerequisites and setup](OptiShaders/README.md#prerequisites) if these are
+See [prerequisites and setup](docs/USER_GUIDE.md#prerequisites) if these are
 not already installed.
 
 1. Download and extract **`OptiShaders-ColecoVision-Gearcoleco.zip`**.
 2. In RetroArch, run **Main Menu → Online Updater → Update Slang Shaders**.
-   If the updater is unavailable, use the [manual installation steps](OptiShaders/README.md#install-the-shared-shaders).
+   If the updater is unavailable, use the [manual installation steps](docs/USER_GUIDE.md#install-the-shared-shaders).
 3. Copy the **`OptiShaders`** folder from the ZIP into `shaders_slang/`, alongside
-   `crt/`. See [where to install it](OptiShaders/README.md#install).
+   `crt/`. See [where to install it](docs/USER_GUIDE.md#install).
 4. Start a ColecoVision game with Gearcoleco and apply the
-   [core and display settings](OptiShaders/README.md#set-up-the-core-and-display).
+   [core and display settings](docs/USER_GUIDE.md#set-up-the-core-and-display).
 5. Open **Quick Menu → Shaders**, turn **Video Shaders** on, and choose
    **Load Preset**. Pick a preset from the folder matching your
-   [output resolution](OptiShaders/README.md#choose-a-preset).
+   [output resolution](docs/USER_GUIDE.md#choose-a-preset).
 6. Open **Manage Presets**, turn **Simple Presets** on, then choose **Save Core Preset**
-   to use that look with Gearcoleco. See [saving and game overrides](OptiShaders/README.md#save-your-choice).
+   to use that look with Gearcoleco. See [saving and game overrides](docs/USER_GUIDE.md#save-your-choice).
 
 ## Choose your look
 
@@ -44,7 +44,7 @@ Badly Adjusted, RGB 100, and Composite 100**.
 Choose from **720p**, **1080p**, **1440p**, or **4K** presets, with **Flat** and
 **Curved** versions at 1080p and above. Signal effects target NTSC.
 
-The [user guide](OptiShaders/README.md) covers preset choices, shader adjustments,
+The [user guide](docs/USER_GUIDE.md) covers preset choices, shader adjustments,
 updates, and troubleshooting.
 
 ## Credits and licenses
@@ -67,7 +67,7 @@ Keep the supplied license notices with the pack:
 
 ## Download checksum
 
-SHA-256 for `OptiShaders-ColecoVision-Gearcoleco.zip`:
+The release download and the [tagged repository copy](https://raw.githubusercontent.com/OptiBunny/OptiShaders/v0.9.1/downloads/OptiShaders-ColecoVision-Gearcoleco.zip) share this SHA-256:
 
 ```text
 0bd1f6eb13048829e9a8332b22ae88f2717be28009986dfb78c926888a49486f

@@ -4,7 +4,7 @@ The initial pack review took place on November 5, 2026. On November 22 the
 review covered the dependency inventory, integer scaling and curvature. On
 November 23 it covered bloom and halation power bases, disabled-mask indexing,
 and frame-counter handling for animated noise, the hum bar, interlace parity,
-rolling scanlines and RF noise. Development release 0.9.1 includes those
+rolling scanlines and RF noise. Release v0.9.1 includes those
 safeguards.
 
 This model describes the distributed preset and shader files, their dependencies,
