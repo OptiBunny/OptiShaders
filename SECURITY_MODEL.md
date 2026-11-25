@@ -1,15 +1,11 @@
 # OptiShaders security model
 
-Initial model reviewed against the public v10.2 pack, 2026-11-05. The dependency
-inventory and integer-scaling safeguards below were updated for v10.5 on
-2026-11-22. Curvature-domain safeguards were added for v10.6 on the same date;
-the evidence limits still apply. Nonnegative bloom and positive-halation power
-bases were added for v10.7 on 2026-11-23. The disabled-mask table index was
-bounded for v10.8 on the same date. Animated-noise phase precision was corrected
-for v10.9 on the same date. Humbar phase precision was corrected for v10.10
-and enabled interlace field parity for v10.11 on the same date. Rolling-scan
-phase precision was corrected for v10.12 on the same date. RF temporal
-noise uses a bounded seed cycle from v10.13, also on the same date.
+The initial pack review took place on November 5, 2026. On November 22 the
+review covered the dependency inventory, integer scaling and curvature. On
+November 23 it covered bloom and halation power bases, disabled-mask indexing,
+and frame-counter handling for animated noise, the hum bar, interlace parity,
+rolling scanlines and RF noise. Development release 0.9.1 includes those
+safeguards.
 
 This model describes the distributed preset and shader files, their dependencies,
 and release-review expectations. It is not a security certification or a claim

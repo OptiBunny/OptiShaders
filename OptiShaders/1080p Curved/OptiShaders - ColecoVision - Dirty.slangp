@@ -1,4 +1,4 @@
-# OptiShaders ColecoVision v10; preset using RetroArch shared Slang shaders.
+# OptiShaders ColecoVision v0.9.1; preset using RetroArch shared Slang shaders.
 shaders = "18"
 shader0 = "../../crt/shaders/guest/advanced/stock.slang"
 alias0 = ""

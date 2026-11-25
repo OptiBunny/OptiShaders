@@ -2,14 +2,18 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v10.13 · 63 presets · 9 looks · 720p to 4K**
+**v0.9.1 · 63 presets · 9 looks · 720p to 4K**
 
 [Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v10.13
+## What's new in v0.9.1
+
+OptiShaders uses three-part version numbers (major.minor.patch). The 0.x series
+contains development releases. Version 0.9.1 follows 0.9.0. You can find the
+pack version at the top of this guide and in the first comment of each supplied preset.
 
 - Keeps **NTSC RF Noise** active when the frame counter becomes large. The RF
   look enables this noise by default; the same correction applies when you
@@ -292,7 +296,7 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The v10.13 update includes the earlier fixes and needs the supplied presets and
+The 0.9.1 update includes the earlier fixes and needs the supplied presets and
 all five files in the bundled `shaders/` folder. Updating the shared Slang
 collection alone does not install these fixes. Older full saved presets may
 still use older shader paths or omit the field and RF-noise counter settings.
