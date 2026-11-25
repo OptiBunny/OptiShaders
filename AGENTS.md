@@ -2,8 +2,10 @@
 
 OptiShaders is a ColecoVision shader preset pack for RetroArch with Gearcoleco.
 The current v0.9.1 pack contains 63 presets and five bundled shader stages.
-Use [the user guide](OptiShaders/README.md) for installation, prerequisites,
+Use [the online user guide](docs/USER_GUIDE.md) for installation, prerequisites,
 expected settings, updates, and troubleshooting.
+Keep the guide in `OptiShaders/README.md` with its matching release ZIP. Apply
+post-release corrections to the online guide and carry them into the next pack.
 
 For security-sensitive changes, read [SECURITY.md](SECURITY.md) and
 [the security model](SECURITY_MODEL.md), then inspect the affected files.
