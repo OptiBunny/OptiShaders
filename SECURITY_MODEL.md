@@ -1,5 +1,8 @@
 # OptiShaders security model
 
+The review history below uses the build labels recorded at the time. Development
+release 0.9.1 includes the changes through the build labeled v10.13.
+
 Initial model reviewed against the public v10.2 pack, 2026-11-05. The dependency
 inventory and integer-scaling safeguards below were updated for v10.5 on
 2026-11-22. Curvature-domain safeguards were added for v10.6 on the same date;
