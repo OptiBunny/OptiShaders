@@ -2,17 +2,19 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v0.9.1 · 63 presets · 9 looks · 720p to 4K**
+**v0.9.2 · 63 presets · 9 looks · 720p to 4K**
 
-Download the [v0.9.1 preset pack (ZIP)](https://github.com/OptiBunny/OptiShaders/releases/download/v0.9.1/OptiShaders-ColecoVision-Gearcoleco.zip), then follow the [installation guide](docs/USER_GUIDE.md#install).
+Download the [v0.9.2 preset pack (ZIP)](https://github.com/OptiBunny/OptiShaders/releases/download/v0.9.2/OptiShaders-ColecoVision-Gearcoleco.zip), then follow the [installation guide](docs/USER_GUIDE.md#install).
 
-## Changes since v0.9.0
+## Changes since v0.9.1
 
-In [v0.9.1](https://github.com/OptiBunny/OptiShaders/releases/tag/v0.9.1), enabled **NTSC RF Noise** keeps moving during long sessions.
-The NTSC signal presets repeat the noise seed every 65,536 frames.
-**RGB** and **RGB 100** are unchanged. Earlier **Rolling Scanlines**, **Interlace Mode**, **Hum Bar**,
-**Add Noise**, mask, bloom, halation, curvature, **Integer Scaling** and
-**Speedup w. higher Internal Res.** corrections remain included.
+- Fixed colour bleeding from **Bloom** into **Glow** when a colour-channel offset
+  is active and **Deconvergence Strength** is below **1.0**.
+- Fixed a thin processed strip at the right edge at high resolutions. **Show
+  Original Image** at **1.0 (100%)** now shows the original image across the full
+  width. Fractional settings retain their previous split position.
+
+All 63 presets retain their supplied settings.
 
 For an existing installation, follow the [update steps](docs/USER_GUIDE.md#update-an-existing-installation).
 
@@ -67,8 +69,8 @@ Keep the supplied license notices with the pack:
 
 ## Download checksum
 
-The release download and the [tagged repository copy](https://raw.githubusercontent.com/OptiBunny/OptiShaders/v0.9.1/downloads/OptiShaders-ColecoVision-Gearcoleco.zip) share this SHA-256:
+The release download and the [tagged repository copy](https://raw.githubusercontent.com/OptiBunny/OptiShaders/v0.9.2/downloads/OptiShaders-ColecoVision-Gearcoleco.zip) share this SHA-256:
 
 ```text
-0bd1f6eb13048829e9a8332b22ae88f2717be28009986dfb78c926888a49486f
+978e2199f99bdf912fccac6348395acfded11bdd54fb94b2c75b449e28451254
 ```

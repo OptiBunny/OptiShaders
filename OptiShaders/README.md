@@ -2,18 +2,28 @@
 
 CRT-style shader presets for **ColecoVision in RetroArch**, using the **Gearcoleco** core.
 
-**v0.9.1 · 63 presets · 9 looks · 720p to 4K**
+**v0.9.2 · 63 presets · 9 looks · 720p to 4K**
 
-[Download OptiShaders](https://github.com/OptiBunny/OptiShaders#readme)
+[Download OptiShaders](https://github.com/OptiBunny/OptiShaders/releases/download/v0.9.2/OptiShaders-ColecoVision-Gearcoleco.zip)
 · [Install](#install)
 · [Choose a preset](#choose-a-preset)
 · [Troubleshooting](#troubleshooting)
 
-## What's new in v0.9.1
+## What's new in v0.9.2
 
-OptiShaders uses three-part version numbers (major.minor.patch). The 0.x series
-contains development releases. Version 0.9.1 follows 0.9.0. You can find the
-pack version at the top of this guide and in the first comment of each supplied preset.
+- Fixed colour bleeding from **Bloom** into **Glow** when a colour-channel offset
+  is active and **Deconvergence Strength** is below **1.0**.
+- Fixed a thin processed strip at the right edge at high resolutions. **Show
+  Original Image** at **1.0 (100%)** now shows the original image across the full
+  width. Fractional settings retain their previous split position.
+
+All 63 presets retain their supplied settings.
+
+Open a supplied `.slangp` file in a text editor to check which version you installed.
+Presets from [the v0.9.2 release](https://github.com/OptiBunny/OptiShaders/releases/tag/v0.9.2) begin with
+`# OptiShaders ColecoVision v0.9.2;`.
+
+## Changes in earlier releases
 
 - Keeps **NTSC RF Noise** active when the frame counter becomes large. The RF
   look enables this noise by default; the same correction applies when you
@@ -296,9 +306,10 @@ Files saved with **Save Preset As** normally use the configured **Video
 Shader** directory; include those in your backup if you use them. See
 [RetroArch's preset storage guidance](https://docs.libretro.com/guides/shaders/#shader-presets).
 
-The 0.9.1 update includes the earlier fixes and needs the supplied presets and
-all five files in the bundled `shaders/` folder. Updating the shared Slang
-collection alone does not install these fixes. Older full saved presets may
+The Glow and right-edge fixes are in the bundled
+`shaders/optishaders-guest-deconvergence-ntsc.slang` stage. RetroArch's
+**Update Slang Shaders** command updates the shared collection. Copy the complete
+v0.9.2 pack to install the corrected bundled stage. Older full saved presets may
 still use older shader paths or omit the field and RF-noise counter settings.
 Reload a supplied preset, reapply your adjustments, enable **Simple Presets**,
 and save it again.
