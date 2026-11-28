@@ -24,6 +24,9 @@
    
 */
 
+// OptiShaders modification, 2026-11-27: keep Glow independent of Bloom during
+// deconvergence and show every column at the full original-image setting.
+
 // OptiShaders modification, 2026-11-23: preserve the humbar frame phase
 // at large unsigned counters, including fractional speed settings.
 
@@ -701,7 +704,7 @@ void fetch_pixel (inout vec3 c, inout vec3 b, inout vec3 g, vec2 coord, vec2 bco
 		b1 = COMPAT_TEXTURE(BloomPass, bcoord + bc).b;
 
 		d = vec3(r1, g1, b1);
-		b = g = mix(b, d, min(ds,1.0));
+		b = mix(b, d, min(ds,1.0));
 		
 		r1 = COMPAT_TEXTURE(GlowPass, bcoord + rc).r;
 		g1 = COMPAT_TEXTURE(GlowPass, bcoord + gc).g;
@@ -947,6 +950,7 @@ else{
 	colmx = max(max(orig1.r,orig1.g),orig1.b);
 	color = color + bmask*mix(cmask2, 0.125*(1.0-colmx)*color, min(20.0*colmx, 1.0));
 	
+	float showOriginal = global.oimage == 1.0 ? 1.0 : step(pos1.x, global.oimage - 0.00025);
 	FragColor = mix(vec4(color*vig*humbar(mix(pos.y, pos.x, global.bardir))*global.post_br*corner(posb), 1.0), 
-	            COMPAT_TEXTURE(StockPass, (floor(pos1*global.OriginalSize.xy)+0.5)*global.OriginalSize.zw), step(pos1.x,global.oimage-0.00025));
+	            COMPAT_TEXTURE(StockPass, (floor(pos1*global.OriginalSize.xy)+0.5)*global.OriginalSize.zw), showOriginal);
 }
